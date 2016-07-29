@@ -15,3 +15,10 @@ var server = app.listen(3000, function () {
 
  console.log('Example app listening at http://%s:%s', host, port);
 });
+
+
+// app.get ('/flights')
+//app.get ('/hotels')
+//app.get ('/uber')
+
+// here we are not creating or updating we are just retrieving info

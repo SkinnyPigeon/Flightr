@@ -62,7 +62,7 @@
 	}
 	
 	
-
+	// here we create the urls and connection to the api's
 
 /***/ }
 /******/ ]);
