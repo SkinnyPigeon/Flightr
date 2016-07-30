@@ -44,10 +44,10 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Flights = __webpack_require__( 1 )
-	var Hotels = __webpack_require__( 2 )
-	var DisplayFlights = __webpack_require__( 3)
-	var HotelView = __webpack_require__( 4 )
+	var Flights = __webpack_require__( 3 )
+	var Hotels = __webpack_require__( 4 )
+	var DisplayFlights = __webpack_require__( 1)
+	var HotelView = __webpack_require__( 2 )
 	
 	
 	var state = {
@@ -79,11 +79,11 @@
 	  date.onchange = function(e) {
 	    console.log(state.nights)
 	
-	  state.date = date.value;
+	    state.date = date.value;
 	    console.log(state.date)
 	    
 	
-	  addDays(state.date, state.nights)
+	    addDays(state.date, state.nights)
 	  }
 	
 	
@@ -92,7 +92,7 @@
 	  var budget = document.getElementById( 'budget' );
 	  var p = document.createElement( 'p' )
 	  state.cost = slider.value
-	    console.log( state.cost )
+	  console.log( state.cost )
 	
 	  p.innerHTML = slider.value
 	  budget.appendChild( p )
@@ -192,26 +192,62 @@
 	}
 	
 	var addDays = function(date, days) {
-	  var result = new Date(date);
-	  result.setDate(result.getDate() + days);
-	  // var date = ( result.getFullYear() + "-" + (result.getMonth() + 1 )+ "-" + result.getDate())
-	  getFormattedDate( result )
+	
+	  var someDate = new Date( date );
+	  var numberOfDaysToAdd = parseInt( days )
+	  console.log( days )
+	  someDate.setDate(someDate.getDate() + numberOfDaysToAdd); 
+	
+	  var dd = someDate.getDate();
+	  var mm = someDate.getMonth() + 1;
+	  mm = mm.length > 1 ? mm : '0' + mm;
+	  dd = dd > 9 ? dd : '0' + dd;
+	
+	  var y = someDate.getFullYear();
+	
+	  var someFormattedDate = y + '-'+ mm + '-'+ dd;
+	  console.log( someFormattedDate )
 	}
 	
-	function getFormattedDate(date) {
-	 var year = date.getFullYear();
-	 var month = (1 + date.getMonth()).toString();
-	 month = month.length > 1 ? month : '0' + month;
-	 var day = date.getDate().toString();
-	 day = day.length > 1 ? day : '0' + day;
-	 console.log( year + '-' + month + '-' + day );
-	}
+	
+	
 	
 	
 
 
 /***/ },
 /* 1 */
+/***/ function(module, exports) {
+
+	var DisplayFlights = function( savedFlight ) {
+	  var flight = document.getElementById( 'flight' );
+	  flight.innerHTML = ""
+	  var p = document.createElement( 'p' );
+	  p.innerHTML = "Cost: £" + savedFlight.Quotes[0].MinPrice
+	  flight.appendChild( p )
+	}
+	
+	module.exports = DisplayFlights;
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	var HotelView = function( hotels ) {
+	  console.log( hotels )
+	  var hotel = document.getElementById( 'hotels' );
+	  hotel.innerHTML = "" 
+	  hotels.forEach( function(disHotel, index ) {
+	    var p = document.createElement( 'p' );
+	    p.innerHTML = "Name: " + disHotel.localizedName + " Cost: £" + disHotel.lowRate
+	    hotel.appendChild( p )
+	  })
+	}
+	
+	module.exports = HotelView;
+
+/***/ },
+/* 3 */
 /***/ function(module, exports) {
 
 	//sort flights- array
@@ -243,7 +279,7 @@
 	module.exports = Flights;
 
 /***/ },
-/* 2 */
+/* 4 */
 /***/ function(module, exports) {
 
 	//sort hotels- array
@@ -270,37 +306,6 @@
 	}
 	
 	module.exports = Hotels;
-
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-	var DisplayFlights = function( savedFlight ) {
-	  var flight = document.getElementById( 'flight' );
-	  flight.innerHTML = ""
-	  var p = document.createElement( 'p' );
-	  p.innerHTML = "Cost: £" + savedFlight.Quotes[0].MinPrice
-	  flight.appendChild( p )
-	}
-	
-	module.exports = DisplayFlights;
-
-/***/ },
-/* 4 */
-/***/ function(module, exports) {
-
-	var HotelView = function( hotels ) {
-	  console.log( hotels )
-	  var hotel = document.getElementById( 'hotels' );
-	  hotel.innerHTML = "" 
-	  hotels.forEach( function(disHotel, index ) {
-	    var p = document.createElement( 'p' );
-	    p.innerHTML = "Name: " + disHotel.localizedName + " Cost: £" + disHotel.lowRate
-	    hotel.appendChild( p )
-	  })
-	}
-	
-	module.exports = HotelView;
 
 /***/ }
 /******/ ]);
