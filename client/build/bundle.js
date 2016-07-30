@@ -194,7 +194,7 @@
 	var addDays = function(date, days) {
 	  var result = new Date(date);
 	  result.setDate(result.getDate() + days);
-	  // var date = ( result.getFullYear() + "-" + (result.getMonth() + 1 )+ "-" + result.getDate())
+	  console.log(result )
 	  getFormattedDate( result )
 	}
 	
