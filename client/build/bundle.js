@@ -44,16 +44,18 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Flights = __webpack_require__( 3 )
-	var Hotels = __webpack_require__( 4 )
-	var DisplayFlights = __webpack_require__( 1)
-	var HotelView = __webpack_require__( 2 )
+	var Flights = __webpack_require__( 1 )
+	var Hotels = __webpack_require__( 2 )
+	var DisplayFlights = __webpack_require__( 3)
+	var HotelView = __webpack_require__( 4 )
 	
 	
 	var state = {
 	  cost: 200,
 	  flight: "",
-	  budget: 0
+	  budget: 0,
+	  nights: 3,
+	  date: ""
 	}
 	
 	var capitalize = function( string ) {
@@ -61,6 +63,29 @@
 	}
 	
 	window.onload = function(){
+	  display( 'nights', state.nights )
+	
+	  var nightslider = document.getElementById( 'nightslider' );
+	
+	  nightslider.onchange = function() {
+	    state.nights = nightslider.value
+	    display('nights', state.nights)
+	  }
+	
+	
+	
+	  var date = document.getElementById('check_in');
+	
+	  date.onchange = function(e) {
+	    console.log(state.nights)
+	
+	  state.date = date.value;
+	    console.log(state.date)
+	    
+	
+	  addDays(state.date, state.nights)
+	  }
+	
 	
 	  var flightsearch
 	  var slider = document.getElementById( 'slider' );
@@ -72,9 +97,9 @@
 	  p.innerHTML = slider.value
 	  budget.appendChild( p )
 	
-	  slider.onchange = function() {
+	  slider.onchange = function(e) {
 	    state.cost = slider.value
-	    displayBudget();
+	    display('budget', state.cost);
 	  }
 	
 	  var  flightUrl = "http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/GB/GBP/en-GB/EDI/anywhere/anytime/anytime?apiKey=eu863416336220144245856861714199"
@@ -99,7 +124,7 @@
 	    var code = flightsearch.airport
 	    console.log( code )
 	
-	    var  url = "http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/GB/GBP/en-GB/EDI/" + code + "/2016-09-05/2016-09-07?apiKey=eu863416336220144245856861714199"
+	    var  url = "http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/GB/GBP/en-GB/EDI/" + code + "/" + state.date + "/2016-09-07?apiKey=eu863416336220144245856861714199"
 	    var request = new XMLHttpRequest();
 	    request.open("GET", url);
 	    request.send(null);
@@ -153,16 +178,33 @@
 	  }
 	}
 	
-	var displayBudget = function() {
-	  var budget = document.getElementById( 'budget' );
-	  budget.innerHTML = ""
+	var display = function(string, item) {
+	  var option = document.getElementById( string );
+	  option.innerHTML = ""
 	  var p = document.createElement( 'p' )
-	  p.innerHTML = state.cost
-	  budget.appendChild( p )
+	  p.innerHTML = item
+	  option.appendChild( p )
 	}
+	
 	
 	var updateBudget = function() {
 	  state.budget = state.cost - state.flight.Quotes[0].MinPrice
+	}
+	
+	var addDays = function(date, days) {
+	  var result = new Date(date);
+	  result.setDate(result.getDate() + days);
+	  // var date = ( result.getFullYear() + "-" + (result.getMonth() + 1 )+ "-" + result.getDate())
+	  getFormattedDate( result )
+	}
+	
+	function getFormattedDate(date) {
+	 var year = date.getFullYear();
+	 var month = (1 + date.getMonth()).toString();
+	 month = month.length > 1 ? month : '0' + month;
+	 var day = date.getDate().toString();
+	 day = day.length > 1 ? day : '0' + day;
+	 console.log( year + '-' + month + '-' + day );
 	}
 	
 	
@@ -170,37 +212,6 @@
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
-
-	var DisplayFlights = function( savedFlight ) {
-	  var flight = document.getElementById( 'flight' );
-	  flight.innerHTML = ""
-	  var p = document.createElement( 'p' );
-	  p.innerHTML = "Cost: £" + savedFlight.Quotes[0].MinPrice
-	  flight.appendChild( p )
-	}
-	
-	module.exports = DisplayFlights;
-
-/***/ },
-/* 2 */
-/***/ function(module, exports) {
-
-	var HotelView = function( hotels ) {
-	  console.log( hotels )
-	  var hotel = document.getElementById( 'hotels' );
-	  hotel.innerHTML = "" 
-	  hotels.forEach( function(disHotel, index ) {
-	    var p = document.createElement( 'p' );
-	    p.innerHTML = "Name: " + disHotel.localizedName + " Cost: £" + disHotel.lowRate
-	    hotel.appendChild( p )
-	  })
-	}
-	
-	module.exports = HotelView;
-
-/***/ },
-/* 3 */
 /***/ function(module, exports) {
 
 	//sort flights- array
@@ -232,7 +243,7 @@
 	module.exports = Flights;
 
 /***/ },
-/* 4 */
+/* 2 */
 /***/ function(module, exports) {
 
 	//sort hotels- array
@@ -259,6 +270,37 @@
 	}
 	
 	module.exports = Hotels;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	var DisplayFlights = function( savedFlight ) {
+	  var flight = document.getElementById( 'flight' );
+	  flight.innerHTML = ""
+	  var p = document.createElement( 'p' );
+	  p.innerHTML = "Cost: £" + savedFlight.Quotes[0].MinPrice
+	  flight.appendChild( p )
+	}
+	
+	module.exports = DisplayFlights;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	var HotelView = function( hotels ) {
+	  console.log( hotels )
+	  var hotel = document.getElementById( 'hotels' );
+	  hotel.innerHTML = "" 
+	  hotels.forEach( function(disHotel, index ) {
+	    var p = document.createElement( 'p' );
+	    p.innerHTML = "Name: " + disHotel.localizedName + " Cost: £" + disHotel.lowRate
+	    hotel.appendChild( p )
+	  })
+	}
+	
+	module.exports = HotelView;
 
 /***/ }
 /******/ ]);
