@@ -44,10 +44,10 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Flights = __webpack_require__( 3 )
-	var Hotels = __webpack_require__( 4 )
-	var DisplayFlights = __webpack_require__( 1)
-	var HotelView = __webpack_require__( 2 )
+	var Flights = __webpack_require__( 1 )
+	var Hotels = __webpack_require__( 2 )
+	var DisplayFlights = __webpack_require__( 3)
+	var HotelView = __webpack_require__( 4 )
 	
 	
 	var state = {
@@ -172,37 +172,6 @@
 /* 1 */
 /***/ function(module, exports) {
 
-	var DisplayFlights = function( savedFlight ) {
-	  var flight = document.getElementById( 'flight' );
-	  flight.innerHTML = ""
-	  var p = document.createElement( 'p' );
-	  p.innerHTML = "Cost: £" + savedFlight.Quotes[0].MinPrice
-	  flight.appendChild( p )
-	}
-	
-	module.exports = DisplayFlights;
-
-/***/ },
-/* 2 */
-/***/ function(module, exports) {
-
-	var HotelView = function( hotels ) {
-	  console.log( hotels )
-	  var hotel = document.getElementById( 'hotels' );
-	  hotel.innerHTML = "" 
-	  hotels.forEach( function(disHotel, index ) {
-	    var p = document.createElement( 'p' );
-	    p.innerHTML = "Name: " + disHotel.localizedName + " Cost: £" + disHotel.lowRate
-	    hotel.appendChild( p )
-	  })
-	}
-	
-	module.exports = HotelView;
-
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
-
 	//sort flights- array
 	
 	// loop through destination and date- if they match then return results
@@ -232,7 +201,7 @@
 	module.exports = Flights;
 
 /***/ },
-/* 4 */
+/* 2 */
 /***/ function(module, exports) {
 
 	//sort hotels- array
@@ -259,6 +228,37 @@
 	}
 	
 	module.exports = Hotels;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	var DisplayFlights = function( savedFlight ) {
+	  var flight = document.getElementById( 'flight' );
+	  flight.innerHTML = ""
+	  var p = document.createElement( 'p' );
+	  p.innerHTML = "Cost: £" + savedFlight.Quotes[0].MinPrice
+	  flight.appendChild( p )
+	}
+	
+	module.exports = DisplayFlights;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	var HotelView = function( hotels ) {
+	  console.log( hotels )
+	  var hotel = document.getElementById( 'hotels' );
+	  hotel.innerHTML = "" 
+	  hotels.forEach( function(disHotel, index ) {
+	    var p = document.createElement( 'p' );
+	    p.innerHTML = "Name: " + disHotel.localizedName + " Cost: £" + disHotel.lowRate
+	    hotel.appendChild( p )
+	  })
+	}
+	
+	module.exports = HotelView;
 
 /***/ }
 /******/ ]);
