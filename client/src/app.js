@@ -170,6 +170,44 @@ var dateSetter = function() {
     myDate.value += 7
 }
 
+var flightClick = function( city ) {
+    flightsearch.getCode( capitalize(city.value) )
+    var code = flightsearch.airport
+    console.log( code )
+
+    var  url = "http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/GB/GBP/en-GB/EDI/" + code + "/" + state.departDate + "/" + state.returnDate + "?apiKey=eu863416336220144245856861714199"
+    var request = new XMLHttpRequest();
+    request.open("GET", url);
+    request.send(null);
+
+    request.onload = function(){
+      var response = request.responseText
+      var flights = JSON.parse( response )
+      console.log( flights )
+      state.flight = flights
+      var displayFlights = new DisplayFlights( state.flight )
+      updateBudget();
+      console.log( state.budget )
+
+      var hotelUrl = "http://terminal2.expedia.com/x/mhotels/search?city=" + city.value.toUpperCase() + "&checkInDate=" + state.departDate + "&checkOutDate=" + state.returnDate + "&room1=3&apikey=a7zmRxiJIznimU5WOlHpTRjDAOFZsrga";
+      var hotelsRequest = new XMLHttpRequest();
+      hotelsRequest.open( "GET", hotelUrl )
+      hotelsRequest.send( null );
+
+      hotelsRequest.onload = function() {
+        var hotelResponse = hotelsRequest.responseText;
+        var allHotels = JSON.parse( hotelResponse );
+        hotelSearch = new Hotels( allHotels  )
+        hotelSearch.sort( state.budget, state.nights )
+        displayHotel = new HotelView( hotelSearch.budgetHotels, state.nights )
+      }
+    } 
+  }
+}
+
+var hotelClick = function() {
+  
+}
 
 
 
