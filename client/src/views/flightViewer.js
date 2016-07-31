@@ -3,10 +3,19 @@ var DisplayFlights = function( savedFlight ) {
 var options = []
 var option1 = 0
 var option2 = 0
+var carrier1 = ""
+var carrier2 = ""
+var carrier3 = ""
 
   savedFlight.Quotes.forEach( function( flight, index ) {
     if( flight.Direct === true && flight.OutboundLeg != undefined && flight.InboundLeg != undefined ) {
-      option1 += flight.MinPrice
+      option1 = {
+        cost: flight.MinPrice,
+        outboundCarrierId: flight.OutboundLeg.CarrierIds[0],
+        inboundCarrierId: flight.InboundLeg.CarrierIds[0]
+        
+      }    
+
       console.log( option1 )
     } else {
       if( flight.Direct === true ) {
@@ -17,6 +26,17 @@ var option2 = 0
       }
     }
   })
+
+  carrierId = function(){
+    savedFlight.Carriers.forEach(function(carrier, index){
+      if(option1.outboundCarrierId === carrier.CarrierId){
+      carrier1 = carrier.Name  }
+    })
+    
+  }
+
+  carrierId()
+  console.log(carrier1)
 
 if( option1 != 0 && option1 != undefined ) {
   options.push( option1 )
