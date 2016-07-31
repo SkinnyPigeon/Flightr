@@ -9,7 +9,8 @@ var state = {
   flight: "",
   budget: 0,
   nights: 3,
-  date: ""
+  departDate: "",
+  returnDate: 0
 }
 
 var capitalize = function( string ) {
@@ -18,7 +19,7 @@ var capitalize = function( string ) {
 
 window.onload = function(){
   display( 'nights', state.nights )
-
+  dateSetter()
   var nightslider = document.getElementById( 'nightslider' );
 
   nightslider.onchange = function() {
@@ -33,11 +34,13 @@ window.onload = function(){
   date.onchange = function(e) {
     console.log(state.nights)
 
-    state.date = date.value;
+
+    state.departDate = date.value;
     console.log(state.date)
     
 
-    addDays(state.date, state.nights)
+    addDays(state.departDate, state.nights)
+
   }
 
 
@@ -78,7 +81,7 @@ window.onload = function(){
     var code = flightsearch.airport
     console.log( code )
 
-    var  url = "http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/GB/GBP/en-GB/EDI/" + code + "/" + state.date + "/2016-09-07?apiKey=eu863416336220144245856861714199"
+    var  url = "http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/GB/GBP/en-GB/EDI/" + code + "/" + state.departDate + "/" + state.returnDate + "?apiKey=eu863416336220144245856861714199"
     var request = new XMLHttpRequest();
     request.open("GET", url);
     request.send(null);
@@ -92,7 +95,7 @@ window.onload = function(){
       updateBudget();
       console.log( state.budget )
 
-      var hotelUrl = "http://terminal2.expedia.com/x/mhotels/search?city=" + city.value.toUpperCase() + "&checkInDate=2016-12-01&checkOutDate=2016-12-03&room1=2&apikey=a7zmRxiJIznimU5WOlHpTRjDAOFZsrga";
+      var hotelUrl = "http://terminal2.expedia.com/x/mhotels/search?city=" + city.value.toUpperCase() + "&checkInDate=" + state.departDate + "&checkOutDate=" + state.returnDate + "&room1=3&apikey=a7zmRxiJIznimU5WOlHpTRjDAOFZsrga";
       var hotelsRequest = new XMLHttpRequest();
       hotelsRequest.open( "GET", hotelUrl )
       hotelsRequest.send( null );
@@ -100,9 +103,9 @@ window.onload = function(){
       hotelsRequest.onload = function() {
         var hotelResponse = hotelsRequest.responseText;
         var allHotels = JSON.parse( hotelResponse );
-        hotelSearch = new Hotels( allHotels )
-        hotelSearch.sort( state.budget )
-        displayHotel = new HotelView( hotelSearch.budgetHotels )
+        hotelSearch = new Hotels( allHotels  )
+        hotelSearch.sort( state.budget, state.nights )
+        displayHotel = new HotelView( hotelSearch.budgetHotels, state.nights )
       }
     } 
   }
@@ -147,6 +150,7 @@ var updateBudget = function() {
 
 var addDays = function(date, days) {
 
+
   var someDate = new Date( date );
   var numberOfDaysToAdd = parseInt( days )
   console.log( days )
@@ -160,7 +164,14 @@ var addDays = function(date, days) {
   var y = someDate.getFullYear();
 
   var someFormattedDate = y + '-'+ mm + '-'+ dd;
-  console.log( someFormattedDate )
+  state.returnDate = someFormattedDate
+}
+
+var dateSetter = function() {
+  myDate = document.getElementById( 'check_in' )
+  if( new Date() >= myDate )
+    myDate.value += 7
+
 }
 
 

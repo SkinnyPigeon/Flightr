@@ -55,7 +55,8 @@
 	  flight: "",
 	  budget: 0,
 	  nights: 3,
-	  date: ""
+	  departDate: "",
+	  returnDate: 0
 	}
 	
 	var capitalize = function( string ) {
@@ -64,7 +65,7 @@
 	
 	window.onload = function(){
 	  display( 'nights', state.nights )
-	
+	  dateSetter()
 	  var nightslider = document.getElementById( 'nightslider' );
 	
 	  nightslider.onchange = function() {
@@ -79,11 +80,13 @@
 	  date.onchange = function(e) {
 	    console.log(state.nights)
 	
-	    state.date = date.value;
+	
+	    state.departDate = date.value;
 	    console.log(state.date)
 	    
 	
-	    addDays(state.date, state.nights)
+	    addDays(state.departDate, state.nights)
+	
 	  }
 	
 	
@@ -124,7 +127,7 @@
 	    var code = flightsearch.airport
 	    console.log( code )
 	
-	    var  url = "http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/GB/GBP/en-GB/EDI/" + code + "/" + state.date + "/2016-09-07?apiKey=eu863416336220144245856861714199"
+	    var  url = "http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/GB/GBP/en-GB/EDI/" + code + "/" + state.departDate + "/" + state.returnDate + "?apiKey=eu863416336220144245856861714199"
 	    var request = new XMLHttpRequest();
 	    request.open("GET", url);
 	    request.send(null);
@@ -138,7 +141,7 @@
 	      updateBudget();
 	      console.log( state.budget )
 	
-	      var hotelUrl = "http://terminal2.expedia.com/x/mhotels/search?city=" + city.value.toUpperCase() + "&checkInDate=2016-12-01&checkOutDate=2016-12-03&room1=2&apikey=a7zmRxiJIznimU5WOlHpTRjDAOFZsrga";
+	      var hotelUrl = "http://terminal2.expedia.com/x/mhotels/search?city=" + city.value.toUpperCase() + "&checkInDate=" + state.departDate + "&checkOutDate=" + state.returnDate + "&room1=3&apikey=a7zmRxiJIznimU5WOlHpTRjDAOFZsrga";
 	      var hotelsRequest = new XMLHttpRequest();
 	      hotelsRequest.open( "GET", hotelUrl )
 	      hotelsRequest.send( null );
@@ -146,9 +149,9 @@
 	      hotelsRequest.onload = function() {
 	        var hotelResponse = hotelsRequest.responseText;
 	        var allHotels = JSON.parse( hotelResponse );
-	        hotelSearch = new Hotels( allHotels )
-	        hotelSearch.sort( state.budget )
-	        displayHotel = new HotelView( hotelSearch.budgetHotels )
+	        hotelSearch = new Hotels( allHotels  )
+	        hotelSearch.sort( state.budget, state.nights )
+	        displayHotel = new HotelView( hotelSearch.budgetHotels, state.nights )
 	      }
 	    } 
 	  }
@@ -193,6 +196,7 @@
 	
 	var addDays = function(date, days) {
 	
+	
 	  var someDate = new Date( date );
 	  var numberOfDaysToAdd = parseInt( days )
 	  console.log( days )
@@ -206,7 +210,14 @@
 	  var y = someDate.getFullYear();
 	
 	  var someFormattedDate = y + '-'+ mm + '-'+ dd;
-	  console.log( someFormattedDate )
+	  state.returnDate = someFormattedDate
+	}
+	
+	var dateSetter = function() {
+	  myDate = document.getElementById( 'check_in' )
+	  if( new Date() >= myDate )
+	    myDate.value += 7
+	
 	}
 	
 	
@@ -251,23 +262,17 @@
 /* 2 */
 /***/ function(module, exports) {
 
-	//sort hotels- array
-	
-	// loop through location and date- if they match then return results
-	
-	//filter by cost- if cost is greater than remaining amount of budget(budget - flight cost)--remove from array.
-	
-	//display total option cost- flight cost + hotel cost
-	
 	var Hotels = function( list ) {
 	  this.list = list;
 	  this.budgetHotels = [];
 	}
 	
 	Hotels.prototype = {
-	  sort: function( budget ) {
+	  sort: function( budget, nights ) {
 	    this.list.hotelList.forEach( function( hotel, index ) {
-	      if( hotel.lowRate <= budget ) {
+	      if( ( hotel.lowRate * nights * 0.7 ) <= budget && nights > 1) {
+	        this.budgetHotels.push( hotel )
+	      } else if ( hotel.lowRate <= budget ) {
 	        this.budgetHotels.push( hotel )
 	      }
 	    }.bind( this ))
@@ -294,13 +299,17 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	var HotelView = function( hotels ) {
+	var HotelView = function( hotels, nights ) {
 	  console.log( hotels )
 	  var hotel = document.getElementById( 'hotels' );
 	  hotel.innerHTML = "" 
 	  hotels.forEach( function(disHotel, index ) {
 	    var p = document.createElement( 'p' );
-	    p.innerHTML = "Name: " + disHotel.localizedName + " Cost: £" + disHotel.lowRate
+	    if( nights > 1 ) {
+	      p.innerHTML = "Name: " + disHotel.localizedName + " Cost: £" + (disHotel.lowRate * nights * 0.7 ).toFixed(2) 
+	    } else {
+	      p.innerHTML = "Name: " + disHotel.localizedName + " Cost: £" + (disHotel.lowRate * nights ).toFixed(2) 
+	    }
 	    hotel.appendChild( p )
 	  })
 	}
