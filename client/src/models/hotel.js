@@ -1,20 +1,14 @@
-//sort hotels- array
-
-// loop through location and date- if they match then return results
-
-//filter by cost- if cost is greater than remaining amount of budget(budget - flight cost)--remove from array.
-
-//display total option cost- flight cost + hotel cost
-
 var Hotels = function( list ) {
   this.list = list;
   this.budgetHotels = [];
 }
 
 Hotels.prototype = {
-  sort: function( budget ) {
+  sort: function( budget, nights ) {
     this.list.hotelList.forEach( function( hotel, index ) {
-      if( hotel.lowRate <= budget ) {
+      if( ( hotel.lowRate * nights * 0.7 ) <= budget && nights > 1) {
+        this.budgetHotels.push( hotel )
+      } else if ( hotel.lowRate <= budget ) {
         this.budgetHotels.push( hotel )
       }
     }.bind( this ))
