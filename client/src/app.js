@@ -29,20 +29,12 @@ window.onload = function(){
     display('nights', state.nights)
   }
 
-
-
   var date = document.getElementById('check_in');
 
   date.onchange = function(e) {
-    console.log(state.nights)
-
     state.departDate = date.value;
-    console.log(state.date)
-    
-
     addDays(state.departDate, state.nights)
   }
-
 
   var slider = document.getElementById( 'slider' );
   var budget = document.getElementById( 'budget' );
@@ -80,30 +72,7 @@ window.onload = function(){
   }
 
   form.onsubmit = function( event ) {
-    // flightClick( city )
-
     event.preventDefault();
-
-    state.flightsearch.getCode( capitalize(city.value) )
-    var code = state.flightsearch.airport
-    console.log( state.departDate )
-
-    var  url = "http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/GB/GBP/en-GB/EDI/" + code + "/" + state.departDate + "/" + state.returnDate + "?apiKey=eu863416336220144245856861714199"
-    console.log( url )
-    var request = new XMLHttpRequest();
-    request.open("GET", url);
-    request.send(null);
-
-    request.onload = function(){
-      var response = request.responseText
-      var flights = JSON.parse( response )
-      console.log( flights )
-      state.flight = flights
-      var displayFlights = new DisplayFlights( state.flight )
-      updateBudget();
-      console.log( state.budget )
-      // hotelClick( city )
-    }
   }
 }
 
@@ -116,8 +85,13 @@ var display = function(string, item) {
 }
 
 
-var updateBudget = function() {
+var updateBudget = function( displayFlights ) {
+  // *****
   state.budget = state.cost - state.flight.Quotes[0].MinPrice
+  // console.log( displayFlights.sorted )
+  // state.budget = state.cost - displayFlights.sorted[0].Quotes.MinPrice
+  // *****
+  console.log( state.budget )
 }
 
 var addDays = function(date, days) {
@@ -162,8 +136,8 @@ var flightClick = function( city ) {
       console.log( state.flight )
       
       var displayFlights = new DisplayFlights( state.flight )
+
       updateBudget();
-      console.log( state.budget )
       hotelClick( city )
     } 
   }
@@ -178,9 +152,10 @@ var hotelClick = function( city ) {
   hotelsRequest.onload = function() {
     var hotelResponse = hotelsRequest.responseText;
     var allHotels = JSON.parse( hotelResponse );
-    hotelSearch = new Hotels( allHotels  )
-    hotelSearch.sort( state.budget, state.nights )
-    displayHotel = new HotelView( hotelSearch.budgetHotels, state.nights )
+    console.log( state.budget )
+    hotelSearch = new Hotels( allHotels, state.nights, state.budget )
+    hotelSearch.sort()
+    var hotelViewer = new HotelView( hotelSearch.budgetHotels, state.nights )
   }
 }
 

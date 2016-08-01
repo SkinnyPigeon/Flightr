@@ -1,17 +1,30 @@
-var Hotels = function( list ) {
+var cost;
+
+var Hotels = function( list, nights, budget ) {
+  this.nights = nights;
+  this.budget = budget;
   this.list = list;
   this.budgetHotels = [];
+  console.log( this.budget )
 }
 
 Hotels.prototype = {
-  sort: function( budget, nights ) {
+  sort: function() {
     this.list.hotelList.forEach( function( hotel, index ) {
-      if( ( hotel.lowRate * nights * 0.7 ) <= budget && nights > 1) {
+        console.log( this.budget )
+
+      cost = parseInt(hotel.lowRate) * this.nights * 0.7  
+        console.log( cost )
+
+      if( this.budget >= cost && this.nights > 1  ) {
+
         this.budgetHotels.push( hotel )
-      } else if ( hotel.lowRate <= budget ) {
+
+      } else if ( this.budget >= cost ) {
         this.budgetHotels.push( hotel )
       }
     }.bind( this ))
+    console.log( this.budgetHotels)
   }
 }
 

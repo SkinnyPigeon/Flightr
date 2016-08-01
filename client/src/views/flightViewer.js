@@ -1,19 +1,3 @@
-// var defaultState = {
-//    options: [],
-//    option1: {
-//     cost: 0,
-//     outboundCarrier: "",
-//     inboundCarrier:""
-//   },
-//    option2: {
-//     cost: 0,
-//     outboundCarrierId: "",
-//     inboundCarrierId: ""
-//    },
-//    outboundCarrier:"",
-//    inboundCarrier: ""
-// }
-
 var State = function() {
    this.options = [];
    this.option1 = {
@@ -27,7 +11,8 @@ var State = function() {
     inboundCarrierId: ""
    };
    this.outboundCarrier = "";
-   this.inboundCarrier = ""
+   this.inboundCarrier = "";
+   this.sorted = {}
 }
 
 var sortedOptions = []
@@ -35,10 +20,6 @@ var sortedOptions = []
 var DisplayFlights = function( savedFlight ) {
 // option 1 = where flight is direct and the inbound cost and outbound cost are covered by one quote 
 // option 2 = where flight is direct and the inbound/ outbound quotes are seperate
-  // if( state != defaultState) {
-  //   state = defaultState
-  //   console.log( state )
-  // }
   var state = new State()
 
   savedFlight.Quotes.forEach( function( flight, index ) {
@@ -53,8 +34,7 @@ var DisplayFlights = function( savedFlight ) {
     } else if( flight.Direct === true && flight.OutboundLeg != undefined ) { 
         state.option2.cost += flight.MinPrice
         state.option2.outboundCarrierId = flight.OutboundLeg.CarrierIds[0]
-      } 
-      else if( flight.Direct === true && flight.InboundLeg != undefined )  {
+    } else if( flight.Direct === true && flight.InboundLeg != undefined )  {
           state.option2.cost += flight.MinPrice
           state.option2.inboundCarrierId = flight.InboundLeg.CarrierIds[0]
       }else{
@@ -74,7 +54,6 @@ var DisplayFlights = function( savedFlight ) {
       if(option.inboundCarrierId === carrier.CarrierId){
        option.inboundCarrier = carrier.Name  }
     })
-
   } 
 
   outboundName( state.option1 )
@@ -93,19 +72,21 @@ var DisplayFlights = function( savedFlight ) {
 
   var sortedOptions = state.options.sort( function( a, b ) {
     var answer = ( a - b )
+    state.sorted = answer
     return answer
   })
 
-  display( sortedOptions )
+  var returnSorted = function() {
+    console.log( state.sorted )
+  }
 
-  // sortedOptions = []
+  display( sortedOptions )
 }
 
 var display = function( options ) {
+
   var flight = document.getElementById( 'flight' );
   while (flight.firstChild) {   
-      // console.log( flight.childNodes )
-
       flight.removeChild(flight.firstChild);
   }
   options.forEach( function( option, index) {
@@ -119,16 +100,10 @@ var display = function( options ) {
     console.log( option.inboundCarrier )
     outbound.innerHTML = "Outbound Carrier: " + option.outboundCarrier 
     inbound.innerHTML = "Inbound Carrier: " + option.inboundCarrier 
-    // console.log(state.outboundCarrier)
-    // console.log(state.inboundCarrier)
     flight.appendChild( cost )
     flight.appendChild( outbound )
     flight.appendChild( inbound )
   })
-   // console.log( defaultState )
-   // state.options.splice( 0, state.options.length )
-   // options.splice( 0, options.length )
-   // state = defaultState
 }
 
 module.exports = DisplayFlights;
