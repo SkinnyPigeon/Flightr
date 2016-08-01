@@ -76,6 +76,7 @@ window.onload = function(){
 
 
   click.onclick = function( event ) {
+    
     flightClick( city )
   }
 

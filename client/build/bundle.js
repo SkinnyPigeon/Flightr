@@ -122,6 +122,7 @@
 	
 	
 	  click.onclick = function( event ) {
+	    
 	    flightClick( city )
 	  }
 	

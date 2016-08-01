@@ -2,62 +2,136 @@
 <html>
 <head>
   <title>Testing Sliders</title>
+  <link rel="stylesheet" type="text/css" href="/main.css">
   <script type="text/javascript" src="bundle.js"></script>
+
+
 </head>
 <body>
-<h1>Hellooossoosjoa</h1>
-<form id="city-form">
-  <input type="text" id="city">
-  <input type="button" id="click" value="GO">
-</form>
-<input type="range" id="slider" step=50 min=100 max=1000 value=200 list="tickmarks">
-<datalist id=tickmarks>
-<option>100</option>
-<option>150</option>
-<option>200</option>
-<option>250</option>
-<option>300</option>
-<option>350</option>
-<option>400</option>
-<option>450</option>
-<option>500</option>
-<option>550</option>
-<option>600</option>
-<option>650</option>
-<option>700</option>
-<option>750</option>
-<option>800</option>
-<option>850</option>
-<option>900</option>
-<option>950</option>
-<option>1000</option>
-</datalist>
 
-<input type="range" id="nightslider" step=1 min=1 max=14 value=3 list="tickmarks">
-<datalist id=tickmarks>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-<option>6</option>
-<option>7</option>
-<option>8</option>
-<option>9</option>
-<option>10</option>
-<option>11</option>
-<option>12</option>
-<option>13</option>
-<option>14</option>
-</datalist>
-
-<input type= "date" id= "check_in">
+  <div class="header">
+    <div class="container">
+      <h1 id="logo">Door 2 Door</h1>
+    </div>
+  </div>
 
 
-<div id="budget"></div>
-<div id="nights"></div>
-<div id="flight"></div>
-<div id="hotels"></div>
+  <div class= "image_slider">
+    <figure>
+      <div class="slide">
+        <p> EXPLORE </p>
+        <img src="css/jellyfish.jpg">
+      </div>
+      <div class="slide">
+        <p> RELAX</p>
+        <img src="css/boaty mcboatface.jpg">
+      </div>
+
+      <div class="slide">
+        <p> DISCOVER </p>
+        <img src="css/birds.jpg">
+      </div>
+
+      <div class="slide">
+        <p> TRAVEL </p>
+        <img src="css/colour.jpg">
+      </div>
+    </figure>
+
+  </div>
+
+  <div class="container">
+
+    <div class="controls">
+      <div class="control">
+        <input type="range" id="slider" step=50 min=100 max=1000 value=200 list="tickmarks">
+        <datalist id=tickmarks>
+          <option>100</option>
+          <option>150</option>
+          <option>200</option>
+          <option>250</option>
+          <option>300</option>
+          <option>350</option>
+          <option>400</option>
+          <option>450</option>
+          <option>500</option>
+          <option>550</option>
+          <option>600</option>
+          <option>650</option>
+          <option>700</option>
+          <option>750</option>
+          <option>800</option>
+          <option>850</option>
+          <option>900</option>
+          <option>950</option>
+          <option>1000</option>
+        </datalist>
+      </div>
+
+      <div class="control">
+        <input type="range" id="nightslider" step=1 min=1 max=14 value=3 list="tickmarks">
+        <datalist id=tickmarks>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+          <option>11</option>
+          <option>12</option>
+          <option>13</option>
+          <option>14</option>
+        </datalist>
+      </div>
+
+      <div class="control">
+        <input type= "date" id="check_in">
+      </div>
+
+      <div class="control">
+        <form id="city-form">
+          <input type="text" id="city">
+          <input type="button" id="click" value="GO">
+        </form>
+      </div>
+
+      <div class="cf"></div>
+
+
+      <div class="result-container">
+        <div class="result">
+          <h3>Budget</h3>
+          <div id="budget"></div>
+        </div>
+
+        <div class="result">
+          <h3>Nights</h3>
+          <div id="nights"></div>
+        </div>
+
+        <div class="result">
+          <h3>Flights</h3>
+          <div id="flight"></div>
+        </div>
+      </div>
+
+<div class="cf"></div>
+
+      <div class="hotel-container">
+        <h3>Hotels</h3>
+        <div id="hotels"></div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+
 
 </body>
 </html>
