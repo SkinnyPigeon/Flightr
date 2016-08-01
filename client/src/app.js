@@ -2,24 +2,14 @@ var Flights = require( './models/flight' )
 var Hotels = require( './models/hotel' )
 var DisplayFlights = require( './views/flightViewer')
 var HotelView = require( './views/hotelViewer' )
-
-
-var state = {
-  cost: 200,
-  flight: "",
-  budget: 0,
-  nights: 3,
-  departDate: "",
-  returnDate: 0,
-  allFlights: {},
-  flightsearch: {}
-}
+var State = require( './models/state' )
 
 var capitalize = function( string ) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 window.onload = function(){
+  state = new State()
   display( 'nights', state.nights )
   dateSetter()
   var nightslider = document.getElementById( 'nightslider' );
@@ -58,7 +48,7 @@ window.onload = function(){
   flightsRequest.onload = function() {
     var flightResponse = flightsRequest.responseText
     state.allFlights = JSON.parse( flightResponse )
-    state.flightsearch = new Flights( state.allFlights )
+    state.flightsearch = new Flights( state.allFlights, state )
     console.log( state.allFlights )
   }
 
@@ -85,13 +75,14 @@ var display = function(string, item) {
 }
 
 
-var updateBudget = function( displayFlights ) {
+var updateBudget = function() {
   // *****
-  state.budget = state.cost - state.flight.Quotes[0].MinPrice
-  // console.log( displayFlights.sorted )
-  // state.budget = state.cost - displayFlights.sorted[0].Quotes.MinPrice
+  state.budget = state.cost - state.flightsearch.state.options[0].cost
+  //  console.log( displayFlights.sorted )
+  // state.budget = state.cost - object.sorted[0].Quotes.MinPrice
   // *****
-  console.log( state.budget )
+  console.log( "Budget: ", state.budget )
+
 }
 
 var addDays = function(date, days) {
@@ -129,13 +120,27 @@ var flightClick = function( city ) {
     request.send(null);
 
     request.onload = function(){
+
+      state.flightsearch.clear()
       var response = request.responseText
       var flights = JSON.parse( response )
-      console.log( flights )
       state.flight = flights
       console.log( state.flight )
-      
-      var displayFlights = new DisplayFlights( state.flight )
+
+      state.flightsearch.getQuote( state.flight )
+
+      state.flightsearch.outboundName( state.flightsearch.state.option1, state.flight )
+
+      state.flightsearch.inboundName( state.flightsearch.state.option1, state.flight )
+
+      state.flightsearch.outboundName( state.flightsearch.state.option2, state.flight )
+
+      state.flightsearch.inboundName( state.flightsearch.state.option2, state.flight )
+
+      state.flightsearch.fillOptions( state.flightsearch.state.option1, state.flightsearch.state.option2 )
+      console.log( state.flightsearch.state.options )
+      var displayFlights = new DisplayFlights( state.flightsearch.state.options )
+      displayFlights.display()
 
       updateBudget();
       hotelClick( city )
@@ -154,8 +159,13 @@ var hotelClick = function( city ) {
     var allHotels = JSON.parse( hotelResponse );
     console.log( state.budget )
     hotelSearch = new Hotels( allHotels, state.nights, state.budget )
-    hotelSearch.sort()
-    var hotelViewer = new HotelView( hotelSearch.budgetHotels, state.nights )
+    hotelSearch.sort();
+    hotelSearch.fixNum();
+    hotelSearch.orderNums();
+    // hotelSearch.order();
+    // console.log( hotelSearch.order() )
+    hotelSearch.select();
+    var hotelViewer = new HotelView( hotelSearch.pickThree, state.nights )
   }
 }
 
