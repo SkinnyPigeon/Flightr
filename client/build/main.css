@@ -110,7 +110,7 @@ h1 {
 
 .controls .control {
   width:25%;
-  float:left;
+ /* float:left;*/
 }
 .controls .control input, .controls .control input[type=button],.controls .control form {
     height:40px;
