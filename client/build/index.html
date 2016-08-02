@@ -46,70 +46,76 @@
      <div class="control">
        <input type="range" id="slider" step=50 min=100 max=1000 value=600 list="tickmarks">
        <datalist id=tickmarks>
-    
+
        </datalist>
      </div>
 
      <div class="control">
-        <input type="range" id="people" step=1 min= 1 max=6 value=2>
-        <datalist id=tickmarks>
-          
-        </datalist>
+      <input type="range" id="people" step=1 min= 1 max=6 value=2>
+      <datalist id=tickmarks>
+
+      </datalist>
+    </div>
+
+    <div class="control">
+     <input type="range" id="nightslider" step=1 min=1 max=14 value=3 list="tickmarks">
+     <datalist id=tickmarks>
+
+     </datalist>
+   </div>
+
+   <div class="control">
+     <input type= "date" id="check_in">
+   </div>
+
+   <div class="control">
+     <form id="city-form">
+       <input type="text" id="city">
+       <input type="button" id="click" value="GO">
+     </form>
+   </div>
+
+   <div class="cf"></div>
+
+
+   <div class="result-container">
+     <div class="result">
+       <h3>Budget</h3>
+       <div id="budget"></div>
      </div>
 
-     <div class="control">
-       <input type="range" id="nightslider" step=1 min=1 max=14 value=3 list="tickmarks">
-       <datalist id=tickmarks>
-       
-       </datalist>
+     <div class="result">
+       <h3>People</h3>
+       <div id="people_slider"></div>
      </div>
 
-     <div class="control">
-       <input type= "date" id="check_in">
+
+
+     <div class="result">
+       <h3>Nights</h3>
+       <div id="nights"></div>
      </div>
 
-     <div class="control">
-       <form id="city-form">
-         <input type="text" id="city">
-         <input type="button" id="click" value="GO">
-       </form>
-     </div>
+
 
      <div class="cf"></div>
 
 
-     <div class="result-container">
-       <div class="result">
-         <h3>Budget</h3>
-         <div id="budget"></div>
-       </div>
+   <div id="package" style="display:none">
 
-       <div class="result">
-         <h3>People</h3>
-         <div id="people_slider"></div>
-       </div>
-
-
-
-       <div class="result">
-         <h3>Nights</h3>
-         <div id="nights"></div>
-       </div>
 
        <div class="result">
          <h3>Flights</h3>
          <div id="flight"></div>
        </div>
-     </div>
+       <div class="hotel-container">
+         <h3>Hotels</h3>
+         <div id="hotels"></div>
+       </div>
+  </div>
 
-<div class="cf"></div>
 
-     <div class="hotel-container">
-       <h3>Hotels</h3>
-       <div id="hotels"></div>
-     </div>
    </div>
-
 
  </div>
 

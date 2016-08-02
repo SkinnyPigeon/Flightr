@@ -73,7 +73,6 @@ window.onload = function(){
 
   click.onclick = function( event ) {
     flightClick( city )
-    
   }
 
   form.onsubmit = function( event ) {
@@ -83,6 +82,7 @@ window.onload = function(){
 
 var display = function(string, item) {
   var option = document.getElementById( string );
+  option.style.display = "block"
   option.innerHTML = ""
   var p = document.createElement( 'p' )
   p.innerHTML = item
@@ -162,11 +162,15 @@ var flightClick = function( city ) {
 
       updateBudget();
       hotelClick( city, code )
+      show( 'package' )
     } 
   }
 
 
-
+var show = function( string ) {
+  var option = document.getElementById( string )
+  option.style.display = "block"
+}
 
 
 var hotelClick = function( city, code ) {
@@ -185,8 +189,6 @@ var hotelClick = function( city, code ) {
     hotelSearch.sort();
     hotelSearch.fixNum();
     hotelSearch.orderNums();
-    // hotelSearch.order();
-    // console.log( hotelSearch.order() )
     hotelSearch.select();
     var hotelViewer = new HotelView( hotelSearch.pickThree, state.nights )
     console.log( hotelSearch.pickThree )
