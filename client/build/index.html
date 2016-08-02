@@ -13,6 +13,9 @@
    <div class="container">
      <h1 id="logo">Door 2 Door</h1>
    </div>
+   <div class="sign_in">
+      <button id="signIn"> Sign In</button>
+   </div>
  </div>
 
 
@@ -77,7 +80,6 @@
 
    <div class="cf"></div>
 
-
    <div class="result-container">
      <div class="result">
        <h3>Budget</h3>
@@ -89,21 +91,14 @@
        <div id="people_slider"></div>
      </div>
 
-
-
      <div class="result">
        <h3>Nights</h3>
        <div id="nights"></div>
      </div>
 
-
-
      <div class="cf"></div>
 
-
-   <div id="package" style="display:none">
-
-
+     <div id="package" style="display:none">
        <div class="result">
          <h3>Flights</h3>
          <div id="flight"></div>
@@ -112,16 +107,46 @@
          <h3>Hotels</h3>
          <div id="hotels"></div>
        </div>
-  </div>
-
-
+     </div>
    </div>
-
  </div>
 
 
-
-
+ <div id="emptyDiv" ></div>
+ <div id="description"></div>
+ <!--container start-->
+ <div id="container" style="display:none">
+   <div id="container_body">
+     <!--Form  start-->
+     <div id="form_name">
+       <div class="firstnameorlastname">
+        <form name="form" >
+        <div id="errorBox"></div>
+         <input type="text" name="Name" value="" placeholder="First Name"  class="input_name" >
+         <input type="text" name="LastName" value="" placeholder="Last Name" class="input_name" >
+          
+       </div>
+       <div id="email_form">
+         <input type="text" name="Email" value=""  placeholder="Your Email" class="input_email">
+       </div>
+       <div id="Re_email_form">
+         <input type="text" name="enterEmail" value=""  placeholder="Re-enter Email" class="input_Re_email">
+       </div>
+       <div id="password_form">
+         <input type="password" name="Password" value=""  placeholder="New Password" class="input_password">
+       </div>
+       <div id="Re-password_form">
+         <input type="password" name="enterPassword" value=""  placeholder="Re-Enter Password" class="input_Re_password">
+       </div>
+        <div>
+         <p id="sign_user" onClick="Submit()">Sign Up </p>
+       </div>
+      </form>
+     </div>
+     <!--form ends-->
+   </div>
+ </div>
+ <!--container ends-->
 </body>
 </html>
 
