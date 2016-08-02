@@ -31,7 +31,7 @@ var DisplayFlights = function( options ) {
 //         outboundCarrierId: flight.OutboundLeg.CarrierIds[0],
 //         inboundCarrierId: flight.InboundLeg.CarrierIds[0]      
 //       }    
-      
+
 //     } else if( flight.Direct === true && flight.OutboundLeg != undefined ) { 
 //         state.option2.cost += flight.MinPrice
 //         state.option2.outboundCarrierId = flight.OutboundLeg.CarrierIds[0]
@@ -89,26 +89,26 @@ DisplayFlights.prototype = {
 
   display: function() {
 
-  var flight = document.getElementById( 'flight' );
-  while (flight.firstChild) {   
+    var flight = document.getElementById( 'flight' );
+    while (flight.firstChild) {   
       flight.removeChild(flight.firstChild);
-  }
-  this.options.forEach( function( option, index) {
+    }
+    this.options.forEach( function( option, index) {
 
-    var cost = document.createElement( 'p' );
-    var outbound = document.createElement( 'p' );
-    var inbound = document.createElement( 'p' );
-    cost.innerHTML = "Cost: £" + option.cost;
-    console.log( option.cost )
-    console.log( option.outboundCarrier )
-    console.log( option.inboundCarrier )
-    outbound.innerHTML = "Outbound Carrier: " + option.outboundCarrier 
-    inbound.innerHTML = "Inbound Carrier: " + option.inboundCarrier 
-    flight.appendChild( cost )
-    flight.appendChild( outbound )
-    flight.appendChild( inbound )
-  })
-}
+      var cost = document.createElement( 'p' );
+      var outbound = document.createElement( 'p' );
+      var inbound = document.createElement( 'p' );
+      cost.innerHTML = "Cost: £" + option.cost;
+      console.log( option.cost )
+      console.log( option.outboundCarrier )
+      console.log( option.inboundCarrier )
+      outbound.innerHTML = "Outbound Carrier: " + option.outboundCarrier 
+      inbound.innerHTML = "Inbound Carrier: " + option.inboundCarrier 
+      flight.appendChild( cost )
+      flight.appendChild( outbound )
+      flight.appendChild( inbound )
+    })
+  }
 }
 
 
