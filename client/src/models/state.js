@@ -17,6 +17,7 @@ var State = function() {
    this.flight = "";
    this.budget=  0;
    this.nights = 3;
+   this.people = 2;
    this.departDate = "";
    this.returnDate = 0;
    this.allFlights = {};
@@ -29,14 +30,9 @@ var State = function() {
    this.inLng = "";
    this.hotelLat = "";
    this.hotelLng = "";
-   this.home2airport = "";
-   this.airport2hotel = "";
+   this.home2airport = 0;
+   this.airport2hotel = 0;
+   this.uberTotal = 0;
 }
-
-// State.prototype = {
-//   clear: function() {
-    
-//   }
-// }
 
 module.exports = State;

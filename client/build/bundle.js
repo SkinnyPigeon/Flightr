@@ -62,6 +62,7 @@
 	
 	window.onload = function(){
 	  state = new State()
+	  display( 'people_slider', state.people )
 	  display( 'nights', state.nights )
 	  dateSetter()
 	  var nightslider = document.getElementById( 'nightslider' );
@@ -92,6 +93,13 @@
 	    display('budget', state.cost);
 	  }
 	
+	  var peopleSlider = document.getElementById( 'people' )
+	  // state.people = peopleSlider.value
+	  peopleSlider.onchange = function(e) {
+	    state.people = peopleSlider.value
+	    display( 'people_slider', state.people )
+	  }
+	
 	  var  flightUrl = "http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/GB/GBP/en-GB/EDI/anywhere/anytime/anytime?apiKey=eu863416336220144245856861714199"
 	  var flightsRequest = new XMLHttpRequest();
 	  flightsRequest.open( "GET", flightUrl );
@@ -116,30 +124,6 @@
 	
 	  form.onsubmit = function( event ) {
 	    event.preventDefault();
-	// <<<<<<< HEAD
-	// =======
-	
-	//     state.flightsearch.getCode( capitalize(city.value) )
-	//     code = state.flightsearch.airport
-	//     console.log( state.departDate )
-	
-	//     var  url = "http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/GB/GBP/en-GB/EDI/" + code + "/" + state.departDate + "/" + state.returnDate + "?apiKey=eu863416336220144245856861714199"
-	//     console.log( url )
-	//     var request = new XMLHttpRequest();
-	//     request.open("GET", url);
-	//     request.send(null);
-	
-	//     request.onload = function(){
-	//       var response = request.responseText
-	//       var flights = JSON.parse( response )
-	//       console.log( flights )
-	//       state.flight = flights
-	//       var displayFlights = new DisplayFlights( state.flight )
-	//       updateBudget();
-	//       console.log( state.budget )
-	//       // hotelClick( city )
-	//     }
-	// >>>>>>> uber
 	  }
 	}
 	
@@ -153,13 +137,14 @@
 	
 	
 	var updateBudget = function() {
-	  // *****
-	  state.budget = state.cost - state.flightsearch.state.options[0].cost
-	  //  console.log( displayFlights.sorted )
-	  // state.budget = state.cost - object.sorted[0].Quotes.MinPrice
-	  // *****
+	  state.budget = state.cost - ( state.flightsearch.state.options[0].cost * state.people )
 	  console.log( "Budget: ", state.budget )
+	}
 	
+	var removeUberCost = function() {
+	  
+	  state.uberTotal = ( state.home2airport + state.airport2hotel )
+	  state.budget -=  state.uberTotal
 	}
 	
 	var addDays = function(date, days) {
@@ -217,7 +202,8 @@
 	
 	      state.flightsearch.fillOptions( state.flightsearch.state.option1, state.flightsearch.state.option2 )
 	      console.log( state.flightsearch.state.options )
-	      var displayFlights = new DisplayFlights( state.flightsearch.state.options )
+	      console.log( state.people )
+	      var displayFlights = new DisplayFlights( state.flightsearch.state.options, state.people )
 	      displayFlights.display()
 	
 	      updateBudget();
@@ -250,12 +236,6 @@
 	    hotelSearch.select();
 	    var hotelViewer = new HotelView( hotelSearch.pickThree, state.nights )
 	    console.log( hotelSearch.pickThree )
-	
-	    // hotelSearch = new Hotels( allHotels  )
-	    // hotelSearch.sort( state.budget, state.nights )
-	    // displayHotel = new HotelView( hotelSearch.budgetHotels, state.nights )
-	
-	
 	    var getHotelLatLng = function(){
 	
 	      if(hotelSearch.budgetHotels[0]){
@@ -266,13 +246,9 @@
 	      }
 	    }
 	    getHotelLatLng()
-	    // console.log(hotelSearch)
-	
-	    // console.log(state.hotelLat)
-	    // console.log(state.hotelLng)
 	    getAirportLatLng(code);
 	    console.log( state.inLat )
-	 
+	  
 	  }
 	}
 	
@@ -300,7 +276,9 @@
 	 console.log(state.outLng)   
 	 requestUber1()
 	 requestUber2()
-	
+	 removeUberCost()
+	 console.log( state.budget )
+	 console.log( state.uberTotal )
 	    }
 	  }
 	}
@@ -361,38 +339,11 @@
 
 	var State = __webpack_require__(2)
 	
-	// var State = function() {
-	//    this.options = [];
-	//    this.option1 = {
-	//     cost: 0,
-	//     outboundCarrier: "",
-	//     inboundCarrier:""
-	//   };
-	//    this.option2 = {
-	//     cost: 0,
-	//     outboundCarrierId: "",
-	//     inboundCarrierId: ""
-	//    };
-	//    this.outboundCarrier = "";
-	//    this.inboundCarrier = "";
-	//    this.sorted = {};
-	//    cost: 200;
-	//    flight: "";
-	//    budget: 0;
-	//    nights: 3;
-	//    departDate: "";
-	//    returnDate: 0;
-	//    allFlights: {};
-	//    flightsearch: {};
-	// }
-	
 	var Flights = function( list, state ) {
 	  this.list = list;
 	  this.airports = [];
 	  this.airport = "";
 	  this.state = state;
-	  // this.state = new State();
-	  // this.savedFlight = savedFlight;
 	}
 	
 	Flights.prototype = {
@@ -487,6 +438,7 @@
 	   this.flight = "";
 	   this.budget=  0;
 	   this.nights = 3;
+	   this.people = 2;
 	   this.departDate = "";
 	   this.returnDate = 0;
 	   this.allFlights = {};
@@ -499,15 +451,10 @@
 	   this.inLng = "";
 	   this.hotelLat = "";
 	   this.hotelLng = "";
-	   this.home2airport = "";
-	   this.airport2hotel = "";
+	   this.home2airport = 0;
+	   this.airport2hotel = 0;
+	   this.uberTotal = 0;
 	}
-	
-	// State.prototype = {
-	//   clear: function() {
-	    
-	//   }
-	// }
 	
 	module.exports = State;
 
@@ -531,7 +478,7 @@
 	  sort: function() {
 	    this.list.hotelList.forEach( function( hotel, index ) {
 	
-	      cost = parseInt(hotel.lowRate) * this.nights * 0.7;  
+	      cost = parseInt(hotel.lowRate) * this.nights * 0.7 + 50;  
 	
 	      if( this.budget >= cost && this.nights > 1  ) {
 	
@@ -583,91 +530,9 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	// var State = function() {
-	//    this.options = [];
-	//    this.option1 = {
-	//     cost: 0,
-	//     outboundCarrier: "",
-	//     inboundCarrier:""
-	//   };
-	//    this.option2 = {
-	//     cost: 0,
-	//     outboundCarrierId: "",
-	//     inboundCarrierId: ""
-	//    };
-	//    this.outboundCarrier = "";
-	//    this.inboundCarrier = "";
-	//    this.sorted = {}
-	// }
-	
-	// var sortedOptions = []
-	
-	var DisplayFlights = function( options ) {
-	  this.options = options
-	// option 1 = where flight is direct and the inbound cost and outbound cost are covered by one quote 
-	// option 2 = where flight is direct and the inbound/ outbound quotes are seperate
-	//   var state = new State();
-	
-	//   savedFlight.Quotes.forEach( function( flight, index ) {
-	
-	//     if( flight.Direct === true && flight.OutboundLeg != undefined && flight.InboundLeg != undefined ) {
-	//       state.option1 = {
-	//         cost: flight.MinPrice,
-	//         outboundCarrierId: flight.OutboundLeg.CarrierIds[0],
-	//         inboundCarrierId: flight.InboundLeg.CarrierIds[0]      
-	//       }    
-	
-	//     } else if( flight.Direct === true && flight.OutboundLeg != undefined ) { 
-	//         state.option2.cost += flight.MinPrice
-	//         state.option2.outboundCarrierId = flight.OutboundLeg.CarrierIds[0]
-	//     } else if( flight.Direct === true && flight.InboundLeg != undefined )  {
-	//           state.option2.cost += flight.MinPrice
-	//           state.option2.inboundCarrierId = flight.InboundLeg.CarrierIds[0]
-	//       }else{
-	//         console.log( "not direct buddy")
-	//       }
-	//   })
-	
-	//   outboundName = function( option ){
-	//     savedFlight.Carriers.forEach(function( carrier, index){
-	//       if(option.outboundCarrierId === carrier.CarrierId){
-	//        option.outboundCarrier = carrier.Name  }
-	//     })
-	//   }  
-	
-	//   inboundName = function( option ){
-	//     savedFlight.Carriers.forEach(function( carrier, index){
-	//       if(option.inboundCarrierId === carrier.CarrierId){
-	//        option.inboundCarrier = carrier.Name  }
-	//     })
-	//   } 
-	
-	//   outboundName( state.option1 )
-	//   inboundName( state.option1 )
-	//   inboundName( state.option2 )
-	//   outboundName( state.option2 )
-	
-	//   if( state.option1.cost != 0 && state.option1.outboundCarrier != undefined ) {
-	//     console.log( state.option1)
-	//    state.options.push( state.option1 )
-	//   }
-	
-	//   if( state.option2.cost != 0 && state.option2.outboundCarrier != undefined ) {
-	//    state.options.push( state.option2 )
-	//   }
-	
-	  // var sortedOptions = state.options.sort( function( a, b ) {
-	  //   var answer = ( a - b )
-	  //   state.sorted = answer
-	  //   return answer
-	  // })
-	
-	//   var returnSorted = function() {
-	//     console.log( state.sorted )
-	//   }
-	
-	//   display( sortedOptions )
-	// }
+	var DisplayFlights = function( options, people ) {
+	  this.options = options;
+	  this.people = people
 	}
 	
 	DisplayFlights.prototype = {
@@ -679,11 +544,11 @@
 	      flight.removeChild(flight.firstChild);
 	    }
 	    this.options.forEach( function( option, index) {
-	
+	      console.log( this.people.value )
 	      var cost = document.createElement( 'p' );
 	      var outbound = document.createElement( 'p' );
 	      var inbound = document.createElement( 'p' );
-	      cost.innerHTML = "Cost: £" + option.cost;
+	      cost.innerHTML = "Cost: £" + ( option.cost * this.people.value ) ;
 	      console.log( option.cost )
 	      console.log( option.outboundCarrier )
 	      console.log( option.inboundCarrier )

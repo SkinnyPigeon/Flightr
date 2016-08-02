@@ -16,6 +16,7 @@ var capitalize = function( string ) {
 
 window.onload = function(){
   state = new State()
+  display( 'people_slider', state.people )
   display( 'nights', state.nights )
   dateSetter()
   var nightslider = document.getElementById( 'nightslider' );
@@ -46,6 +47,13 @@ window.onload = function(){
     display('budget', state.cost);
   }
 
+  var peopleSlider = document.getElementById( 'people' )
+  // state.people = peopleSlider.value
+  peopleSlider.onchange = function(e) {
+    state.people = peopleSlider.value
+    display( 'people_slider', state.people )
+  }
+
   var  flightUrl = "http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/GB/GBP/en-GB/EDI/anywhere/anytime/anytime?apiKey=eu863416336220144245856861714199"
   var flightsRequest = new XMLHttpRequest();
   flightsRequest.open( "GET", flightUrl );
@@ -70,30 +78,6 @@ window.onload = function(){
 
   form.onsubmit = function( event ) {
     event.preventDefault();
-// <<<<<<< HEAD
-// =======
-
-//     state.flightsearch.getCode( capitalize(city.value) )
-//     code = state.flightsearch.airport
-//     console.log( state.departDate )
-
-//     var  url = "http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/GB/GBP/en-GB/EDI/" + code + "/" + state.departDate + "/" + state.returnDate + "?apiKey=eu863416336220144245856861714199"
-//     console.log( url )
-//     var request = new XMLHttpRequest();
-//     request.open("GET", url);
-//     request.send(null);
-
-//     request.onload = function(){
-//       var response = request.responseText
-//       var flights = JSON.parse( response )
-//       console.log( flights )
-//       state.flight = flights
-//       var displayFlights = new DisplayFlights( state.flight )
-//       updateBudget();
-//       console.log( state.budget )
-//       // hotelClick( city )
-//     }
-// >>>>>>> uber
   }
 }
 
@@ -107,13 +91,14 @@ var display = function(string, item) {
 
 
 var updateBudget = function() {
-  // *****
-  state.budget = state.cost - state.flightsearch.state.options[0].cost
-  //  console.log( displayFlights.sorted )
-  // state.budget = state.cost - object.sorted[0].Quotes.MinPrice
-  // *****
+  state.budget = state.cost - ( state.flightsearch.state.options[0].cost * state.people )
   console.log( "Budget: ", state.budget )
+}
 
+var removeUberCost = function() {
+  
+  state.uberTotal = ( state.home2airport + state.airport2hotel )
+  state.budget -=  state.uberTotal
 }
 
 var addDays = function(date, days) {
@@ -171,7 +156,8 @@ var flightClick = function( city ) {
 
       state.flightsearch.fillOptions( state.flightsearch.state.option1, state.flightsearch.state.option2 )
       console.log( state.flightsearch.state.options )
-      var displayFlights = new DisplayFlights( state.flightsearch.state.options )
+      console.log( state.people )
+      var displayFlights = new DisplayFlights( state.flightsearch.state.options, state.people )
       displayFlights.display()
 
       updateBudget();
@@ -204,12 +190,6 @@ var hotelClick = function( city, code ) {
     hotelSearch.select();
     var hotelViewer = new HotelView( hotelSearch.pickThree, state.nights )
     console.log( hotelSearch.pickThree )
-
-    // hotelSearch = new Hotels( allHotels  )
-    // hotelSearch.sort( state.budget, state.nights )
-    // displayHotel = new HotelView( hotelSearch.budgetHotels, state.nights )
-
-
     var getHotelLatLng = function(){
 
       if(hotelSearch.budgetHotels[0]){
@@ -220,13 +200,9 @@ var hotelClick = function( city, code ) {
       }
     }
     getHotelLatLng()
-    // console.log(hotelSearch)
-
-    // console.log(state.hotelLat)
-    // console.log(state.hotelLng)
     getAirportLatLng(code);
     console.log( state.inLat )
- 
+  
   }
 }
 
@@ -254,7 +230,9 @@ function getAirportLatLng(code){
  console.log(state.outLng)   
  requestUber1()
  requestUber2()
-
+ removeUberCost()
+ console.log( state.budget )
+ console.log( state.uberTotal )
     }
   }
 }
