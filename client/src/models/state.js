@@ -21,6 +21,16 @@ var State = function() {
    returnDate: 0;
    allFlights: {};
    flightsearch: {};
+   homeLat: "55.946831";
+   homeLng: "-3.202032";
+   outLat: "55.9508";
+   outLng: "-3.3615"; 
+   inLat: "";
+   inLng: "";
+   hotelLat: "";
+   hotelLng: "";
+   home2airport: "";
+   airport2hotel:"";
 }
 
 // State.prototype = {

@@ -8,7 +8,6 @@ var Hotels = function( list, nights, budget ) {
   this.rates = [];
   this.sortedHotels = [];
   this.pickThree = [];
-  console.log( this.budget )
 }
 
 Hotels.prototype = {
