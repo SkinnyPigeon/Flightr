@@ -8,7 +8,7 @@ html, body {
   height: 100%;
 }
 body {
-  background-color: #F8FAFF;
+  background-color: #f0f8ff;
   font-size: 100%;
   font-family:Sans-Serif;
 }
@@ -18,6 +18,10 @@ h1 {
   position: center;
 }
 
+h5 {
+  color:grey;
+}
+
 .cf {
   clear: both;
 }
@@ -25,7 +29,7 @@ h1 {
 .image_slider p{
   z-index:10000;
   font-size:400%;
-  text-align:right;
+  text-align:center;
   position:absolute;
   width:20%;
   padding-top:100px;
@@ -94,6 +98,11 @@ h1 {
   padding-top:15px;
 }
 
+#sign_in {
+  padding-top:20px;
+  float:right;
+}
+
 .header {
   width:100%;
   height:70px;
@@ -108,30 +117,69 @@ h1 {
   margin-top:30px;
 }
 
-.controls .control {
-  width:25%;
- /* float:left;*/
-}
 .controls .control input, .controls .control input[type=button],.controls .control form {
     height:40px;
     padding:0 5px;
+
 }
 
-.result-container {
+.selector-container {
   width:90%;
-  float:left;
+  height:200px;
+  float:right;
   padding:5%;
   margin-top: 25px;
-  background-color:#f3f3f3;
+  background-color:#ADD8E6;
+  position:relative;
 }
 
-.result-container .result {
+.box {
+  width:30%;
+  position:absolute;
+  font-color:white;
+}
+
+.slider_control {
+  top:6%;
+  left:3%;
+  font-color:white;
+}
+
+.date_city_control {
+  top:6%;
+  left:25%;
+  color:grey;
+}
+
+.results_control {
+  top:6%;
+  left:50%;
+  color:grey;
+}
+
+
+/*.selector-container .last_control {
+  width:30%;
+  position: absolute;
+  left:300px;
+  
+}
+
+.selector-container .middle_control {
+  width:30%;
+  position:absolute;
+  left: 500px;
+  
+  
+}*/
+
+/*.selector-container .result {
   width:33.33%;
   float:left;
 }
 
 .hotel-container {
   margin-top: 25px;
-}
+}*/
 
 
