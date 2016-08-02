@@ -25,7 +25,7 @@ h1 {
 .image_slider p{
   z-index:10000;
   font-size:400%;
-  text-align:center;
+  text-align:right;
   position:absolute;
   width:20%;
   padding-top:100px;
@@ -53,7 +53,7 @@ h1 {
   width: 400%;
   margin: 0;
   left: 0;
-  animation: 120s moving infinite;
+  animation: 30s moving infinite;
 }
 
 @keyframes moving{
