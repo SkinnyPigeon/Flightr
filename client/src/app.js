@@ -203,13 +203,14 @@ var hotelClick = function( city, code ) {
     // console.log( hotelSearch.order() )
     hotelSearch.select();
     var hotelViewer = new HotelView( hotelSearch.pickThree, state.nights )
+    console.log( hotelSearch.pickThree )
 
-    hotelSearch = new Hotels( allHotels  )
-    hotelSearch.sort( state.budget, state.nights )
-    displayHotel = new HotelView( hotelSearch.budgetHotels, state.nights )
+    // hotelSearch = new Hotels( allHotels  )
+    // hotelSearch.sort( state.budget, state.nights )
+    // displayHotel = new HotelView( hotelSearch.budgetHotels, state.nights )
 
 
-    var latLng = function(){
+    var getHotelLatLng = function(){
 
       if(hotelSearch.budgetHotels[0]){
         state.hotelLat = hotelSearch.budgetHotels[0].latitude
@@ -218,14 +219,13 @@ var hotelClick = function( city, code ) {
         state.hotelLng = hotelSearch.budgetHotels[0].longitude
       }
     }
-    latLng()
+    getHotelLatLng()
     // console.log(hotelSearch)
 
     // console.log(state.hotelLat)
     // console.log(state.hotelLng)
     getAirportLatLng(code);
-    requestUber1()
-    requestUber2()
+    console.log( state.inLat )
  
   }
 }
@@ -243,8 +243,17 @@ function getAirportLatLng(code){
       var uber = JSON.parse(request.responseText);
       state.inLat = uber[0].lat
       state.inLng = uber[0].lng
+      console.log( uber )
+      console.log( state.inLat)
+      console.log( state.hotelLat )
+    
 
-
+ console.log(state.homeLat)   
+ console.log(state.homeLng)   
+ console.log(state.outLat)   
+ console.log(state.outLng)   
+ requestUber1()
+ requestUber2()
 
     }
   }
@@ -275,6 +284,7 @@ console.log(uber)
 // console.log(state.hotelLat)
 
 function requestUber2(){
+
 
   var url = "https://api.uber.com/v1/estimates/price?start_latitude=" + state.inLat + "&start_longitude=" + state.inLng + "&end_latitude=" + state.hotelLat + "&end_longitude=" + state.hotelLng + "&server_token=d8Smu8d825OY2EOEiiCSih559Zw4FEht7slwXKOt"
   var request = new XMLHttpRequest();

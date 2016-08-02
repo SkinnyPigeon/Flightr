@@ -13,24 +13,24 @@ var State = function() {
    this.outboundCarrier = "";
    this.inboundCarrier = "";
    this.sorted = {};
-   cost: 200;
-   flight: "";
-   budget: 0;
-   nights: 3;
-   departDate: "";
-   returnDate: 0;
-   allFlights: {};
-   flightsearch: {};
-   homeLat: "55.946831";
-   homeLng: "-3.202032";
-   outLat: "55.9508";
-   outLng: "-3.3615"; 
-   inLat: "";
-   inLng: "";
-   hotelLat: "";
-   hotelLng: "";
-   home2airport: "";
-   airport2hotel:"";
+   this.cost = 200;
+   this.flight = "";
+   this.budget=  0;
+   this.nights = 3;
+   this.departDate = "";
+   this.returnDate = 0;
+   this.allFlights = {};
+   this.flightsearch = {};
+   this.homeLat = "55.946831";
+   this.homeLng = "-3.202032";
+   this.outLat = "55.9508";
+   this.outLng = "-3.3615"; 
+   this.inLat = "";
+   this.inLng = "";
+   this.hotelLat = "";
+   this.hotelLng = "";
+   this.home2airport = "";
+   this.airport2hotel = "";
 }
 
 // State.prototype = {
