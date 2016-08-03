@@ -106,7 +106,7 @@ var display = function(string, item) {
 
 
 var updateBudget = function() {
-  state.flightcost = state.flightsearch.state.options[0].cost * state.people
+  state.flightcost = parseFloat(state.flightsearch.state.options[0].cost) * state.people
   state.budget = state.cost - ( state.flightsearch.state.options[0].cost * state.people )
   console.log( "Budget: ", state.budget )
 }
@@ -203,6 +203,10 @@ var hotelClick = function( city, code ) {
     hotelSearch.fixNum();
     hotelSearch.orderNums();
     hotelSearch.select();
+
+    state.hotelobject1 = hotelSearch.pickThree[0]
+    state.hotelobject2 = hotelSearch.pickThree[1]
+    state.hotelobject3 = hotelSearch.pickThree[2]
 
     var getHotelLatLng1 = function(){
 
@@ -346,14 +350,22 @@ function requestUber4(){
       state.uberTotal3 = (state.airport2hotel3 + state.home2airport)*2
       
     }
+
+
     // var hotelViewer1 = new HotelView( hotelSearch.pickThree[0], state.uberTotal1, 'hotels', state.nights )
 
     // var hotelViewer2 = new HotelView( hotelSearch.pickThree[1], state.uberTotal2, 'hotels', state.nights )
 
     // var hotelViewer3 = new HotelView( hotelSearch.pickThree[2], state.uberTotal3, 'hotels', state.nights )
     
-    var displayFlights = new DisplayFlights( state )
-    displayFlights.display("p1")
+    var displayFlights1 = new DisplayFlights( state, state.uberTotal1, state.hotelobject1 )
+    displayFlights1.display("p1")
+
+    var displayFlights2 = new DisplayFlights( state, state.uberTotal2, state.hotelobject2 )
+    displayFlights2.display("p2")
+
+    var displayFlights3 = new DisplayFlights( state, state.uberTotal3, state.hotelobject3 )
+    displayFlights3.display("p3")
   }
 
 

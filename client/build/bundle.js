@@ -152,7 +152,7 @@
 	
 	
 	var updateBudget = function() {
-	  state.flightcost = state.flightsearch.state.options[0].cost * state.people
+	  state.flightcost = parseFloat(state.flightsearch.state.options[0].cost) * state.people
 	  state.budget = state.cost - ( state.flightsearch.state.options[0].cost * state.people )
 	  console.log( "Budget: ", state.budget )
 	}
@@ -249,6 +249,10 @@
 	    hotelSearch.fixNum();
 	    hotelSearch.orderNums();
 	    hotelSearch.select();
+	
+	    state.hotelobject1 = hotelSearch.pickThree[0]
+	    state.hotelobject2 = hotelSearch.pickThree[1]
+	    state.hotelobject3 = hotelSearch.pickThree[2]
 	
 	    var getHotelLatLng1 = function(){
 	
@@ -392,14 +396,22 @@
 	      state.uberTotal3 = (state.airport2hotel3 + state.home2airport)*2
 	      
 	    }
+	
+	
 	    // var hotelViewer1 = new HotelView( hotelSearch.pickThree[0], state.uberTotal1, 'hotels', state.nights )
 	
 	    // var hotelViewer2 = new HotelView( hotelSearch.pickThree[1], state.uberTotal2, 'hotels', state.nights )
 	
 	    // var hotelViewer3 = new HotelView( hotelSearch.pickThree[2], state.uberTotal3, 'hotels', state.nights )
 	    
-	    var displayFlights = new DisplayFlights( state )
-	    displayFlights.display("p1")
+	    var displayFlights1 = new DisplayFlights( state, state.uberTotal1, state.hotelobject1 )
+	    displayFlights1.display("p1")
+	
+	    var displayFlights2 = new DisplayFlights( state, state.uberTotal2, state.hotelobject2 )
+	    displayFlights2.display("p2")
+	
+	    var displayFlights3 = new DisplayFlights( state, state.uberTotal3, state.hotelobject3 )
+	    displayFlights3.display("p3")
 	  }
 	
 	
@@ -532,6 +544,9 @@
 	   this.hotel2Lng = "";
 	   this.hotel3Lat = "";
 	   this.hotel3Lng = "";
+	   this.hotelobject1 = {};
+	   this.hotelobject2= {};
+	   this.hotelobject3 = {};
 	   this.home2airport = 0;
 	   this.airport2hotel1 = 0; 
 	   this.airport2hotel2 = 0; 
@@ -614,8 +629,10 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	var DisplayFlights = function( state ) {
-	  this.state = state
+	var DisplayFlights = function( state,  uberTotal, hotelObject ) {
+	  this.state = state;
+	  this.uberTotal = uberTotal;
+	  this.hotelObject = hotelObject
 	// option 1 = where flight is direct and the inbound cost and outbound cost are covered by one quote 
 	// option 2 = where flight is direct and the inbound/ outbound quotes are seperate
 	
@@ -635,21 +652,30 @@
 	        var inbound = document.createElement( 'p' );
 	        var uber = document.createElement( 'p' );
 	        var total = document.createElement( 'p' );
+	        var accomodation = document.createElement( 'p' );
+	        var accomodationName = document.createElement( 'p' );
+	        var packageTotal = document.createElement( 'p' );
 	
 	        console.log(this.state)
 	
 	        outbound.innerHTML = "Outbound Carrier: " + this.state.flightsearch.state.option1.outboundCarrier 
 	        inbound.innerHTML = "Inbound Carrier: " + this.state.flightsearch.state.option1.inboundCarrier 
-	        cost.innerHTML = "Cost of flights: £" + (this.state.flightcost * this.state.people);
-	        uber.innerHTML = "Cost of Uber: £" + this.state.uberTotal1;
+	        cost.innerHTML = "Cost of flights: £" + this.state.flightcost;
+	        uber.innerHTML = "Cost of Uber: £" + this.uberTotal;
+	        accomodation.innerHTML = "Accomodation: £" + this.hotelObject.lowRate;
+	        accomodationName.innerHTML = "Name: " + this.hotelObject.localizedName;
+	        packageTotal.innerHTML = "Total: " + (this.state.flightcost + this.uberTotal + parseFloat(this.hotelObject.lowRate));
 	
-	        total.innerHTML = "Total Transport Cost: £" + (this.state.uberTotal1 + (this.state.flightcost * this.state.people))
+	        total.innerHTML = "Total Transport Cost: £" + (this.uberTotal + this.state.flightcost).toFixed(2)
 	
 	        flight.appendChild( cost )
 	        flight.appendChild( outbound )
 	        flight.appendChild( inbound )
 	        flight.appendChild( uber )
 	        flight.appendChild( total )
+	        flight.appendChild( accomodationName )
+	        flight.appendChild( accomodation )
+	        flight.appendChild( packageTotal )
 	      }
 	}
 	
