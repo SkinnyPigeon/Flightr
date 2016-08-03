@@ -45,9 +45,9 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var Flights = __webpack_require__( 1 )
-	var Hotels = __webpack_require__( 2 )
-	var DisplayFlights = __webpack_require__( 3)
-	var HotelView = __webpack_require__( 4 )
+	var Hotels = __webpack_require__( 3 )
+	var DisplayFlights = __webpack_require__( 4)
+	var HotelView = __webpack_require__( 5 )
 	
 	
 	var state = {
@@ -260,7 +260,8 @@
 	module.exports = Flights;
 
 /***/ },
-/* 2 */
+/* 2 */,
+/* 3 */
 /***/ function(module, exports) {
 
 	var Hotels = function( list ) {
@@ -283,7 +284,7 @@
 	module.exports = Hotels;
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports) {
 
 	// var defaultState = {
@@ -424,7 +425,7 @@
 
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 	var HotelView = function( hotels, nights ) {
