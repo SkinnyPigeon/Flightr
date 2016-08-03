@@ -30,14 +30,14 @@ window.onload = function(){
   }
 
   state = new State()
-  display( 'people_slider', state.people )
-  display( 'nights', state.nights )
+  display( 'people', state.people )
+  display( 'nightslider', state.nights )
   dateSetter()
   var nightslider = document.getElementById( 'nightslider' );
 
   nightslider.onchange = function() {
     state.nights = nightslider.value
-    display('nights', state.nights)
+    display('nightslider', state.nights)
   }
 
   var date = document.getElementById('check_in');
@@ -96,7 +96,7 @@ window.onload = function(){
 
 var display = function(string, item) {
   var option = document.getElementById( string );
-  option.style.display = "block"
+  // option.style.display = "block"
   option.innerHTML = ""
   var p = document.createElement( 'p' )
   p.innerHTML = item
@@ -344,11 +344,11 @@ function requestUber4(){
       state.uberTotal3 = (state.airport2hotel3 + state.home2airport)*2
       
     }
-    var hotelViewer1 = new HotelView( hotelSearch.pickThree[0], state.uberTotal1, 'hotel1', state.nights )
+    var hotelViewer1 = new HotelView( hotelSearch.pickThree[0], state.uberTotal1, 'hotels', state.nights )
 
-    var hotelViewer2 = new HotelView( hotelSearch.pickThree[1], state.uberTotal2, 'hotel2', state.nights )
+    var hotelViewer2 = new HotelView( hotelSearch.pickThree[1], state.uberTotal2, 'hotels', state.nights )
 
-    var hotelViewer3 = new HotelView( hotelSearch.pickThree[2], state.uberTotal3, 'hotel3', state.nights )
+    var hotelViewer3 = new HotelView( hotelSearch.pickThree[2], state.uberTotal3, 'hotels', state.nights )
     
     var displayFlights = new DisplayFlights( state )
     displayFlights.display()
