@@ -130,7 +130,7 @@ h5 {
 
 .selector-container {
  width:90%;
- height:200px;
+ height:500px;
  float:right;
  padding:5%;
  padding-right: 20px;
@@ -183,6 +183,7 @@ padding:20px;
 display:none;
 float: right;
 top: 0px;
+margin-right: 50px;
 color:grey;
 }
 
@@ -201,7 +202,7 @@ color:grey;
 #package1_control:hover .show {
   padding-right: 15px;
   display: inline-block;
-  position: relative;
+  position: absolute;
 }
 
 .show{
@@ -211,7 +212,7 @@ color:grey;
 #package2_control:hover .show {
   display: inline-block;
   padding-right: 15px;
-  position: relative;
+  position: absolute;
 
   
 }
@@ -219,8 +220,7 @@ color:grey;
 #package3_control:hover .show {
   display: inline-block;
   padding-right: 15px;
-
-
+  position: absolute;
 }
 
 #Budget {
