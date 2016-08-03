@@ -175,14 +175,14 @@ var flightClick = function( city ) {
 
       updateBudget();
       hotelClick( city, code )
-      // show( 'package' )
+      show( 'packages' )
     } 
   }
 
 
 var show = function( string ) {
   var option = document.getElementById( string )
-  option.style.display = "block"
+  option.style.display = "inline-block"
 }
 
 
