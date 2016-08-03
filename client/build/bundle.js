@@ -405,13 +405,13 @@
 	    // var hotelViewer3 = new HotelView( hotelSearch.pickThree[2], state.uberTotal3, 'hotels', state.nights )
 	    
 	    var displayFlights1 = new DisplayFlights( state, state.uberTotal1, state.hotelobject1 )
-	    displayFlights1.display("p1")
+	    displayFlights1.display("p1", "package1_control")
 	
 	    var displayFlights2 = new DisplayFlights( state, state.uberTotal2, state.hotelobject2 )
-	    displayFlights2.display("p2")
+	    displayFlights2.display("p2", "package2_control")
 	
 	    var displayFlights3 = new DisplayFlights( state, state.uberTotal3, state.hotelobject3 )
-	    displayFlights3.display("p3")
+	    displayFlights3.display("p3", "package3_control")
 	  }
 	
 	
@@ -640,9 +640,10 @@
 	
 	DisplayFlights.prototype = {
 	
-	  display: function(string) {
+	  display: function(string, string2) {
 	
 	    var flight = document.getElementById( string );
+	    var price = document.getElementById( string2 );
 	    while (flight.firstChild) {   
 	      flight.removeChild(flight.firstChild);
 	    }
@@ -655,6 +656,7 @@
 	        var accomodation = document.createElement( 'p' );
 	        var accomodationName = document.createElement( 'p' );
 	        var packageTotal = document.createElement( 'p' );
+	        var showTotal = document.createElement( 'p' );
 	
 	        console.log(this.state)
 	
@@ -664,7 +666,7 @@
 	        uber.innerHTML = "Cost of Uber: £" + this.uberTotal;
 	        accomodation.innerHTML = "Accomodation: £" + this.hotelObject.lowRate;
 	        accomodationName.innerHTML = "Name: " + this.hotelObject.localizedName;
-	        packageTotal.innerHTML = "Total: " + (this.state.flightcost + this.uberTotal + parseFloat(this.hotelObject.lowRate));
+	        packageTotal.innerHTML = "Total: " + (this.state.flightcost + this.uberTotal + parseFloat(this.hotelObject.lowRate)).toFixed(2);
 	
 	        total.innerHTML = "Total Transport Cost: £" + (this.uberTotal + this.state.flightcost).toFixed(2)
 	
@@ -675,7 +677,7 @@
 	        flight.appendChild( total )
 	        flight.appendChild( accomodationName )
 	        flight.appendChild( accomodation )
-	        flight.appendChild( packageTotal )
+	        price.appendChild( packageTotal )
 	      }
 	}
 	

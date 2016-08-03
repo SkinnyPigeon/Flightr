@@ -9,9 +9,10 @@ var DisplayFlights = function( state,  uberTotal, hotelObject ) {
 
 DisplayFlights.prototype = {
 
-  display: function(string) {
+  display: function(string, string2) {
 
     var flight = document.getElementById( string );
+    var price = document.getElementById( string2 );
     while (flight.firstChild) {   
       flight.removeChild(flight.firstChild);
     }
@@ -24,6 +25,7 @@ DisplayFlights.prototype = {
         var accomodation = document.createElement( 'p' );
         var accomodationName = document.createElement( 'p' );
         var packageTotal = document.createElement( 'p' );
+        var showTotal = document.createElement( 'p' );
 
         console.log(this.state)
 
@@ -33,7 +35,7 @@ DisplayFlights.prototype = {
         uber.innerHTML = "Cost of Uber: £" + this.uberTotal;
         accomodation.innerHTML = "Accomodation: £" + this.hotelObject.lowRate;
         accomodationName.innerHTML = "Name: " + this.hotelObject.localizedName;
-        packageTotal.innerHTML = "Total: " + (this.state.flightcost + this.uberTotal + parseFloat(this.hotelObject.lowRate));
+        packageTotal.innerHTML = "Total: " + (this.state.flightcost + this.uberTotal + parseFloat(this.hotelObject.lowRate)).toFixed(2);
 
         total.innerHTML = "Total Transport Cost: £" + (this.uberTotal + this.state.flightcost).toFixed(2)
 
@@ -44,7 +46,7 @@ DisplayFlights.prototype = {
         flight.appendChild( total )
         flight.appendChild( accomodationName )
         flight.appendChild( accomodation )
-        flight.appendChild( packageTotal )
+        price.appendChild( packageTotal )
       }
 }
 

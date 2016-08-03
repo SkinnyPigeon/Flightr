@@ -359,13 +359,13 @@ function requestUber4(){
     // var hotelViewer3 = new HotelView( hotelSearch.pickThree[2], state.uberTotal3, 'hotels', state.nights )
     
     var displayFlights1 = new DisplayFlights( state, state.uberTotal1, state.hotelobject1 )
-    displayFlights1.display("p1")
+    displayFlights1.display("p1", "package1_control")
 
     var displayFlights2 = new DisplayFlights( state, state.uberTotal2, state.hotelobject2 )
-    displayFlights2.display("p2")
+    displayFlights2.display("p2", "package2_control")
 
     var displayFlights3 = new DisplayFlights( state, state.uberTotal3, state.hotelobject3 )
-    displayFlights3.display("p3")
+    displayFlights3.display("p3", "package3_control")
   }
 
 
