@@ -7,24 +7,12 @@ var DisplayFlights = function( state ) {
 
 DisplayFlights.prototype = {
 
-  display: function() {
+  display: function(string) {
 
-    var flight = document.getElementById( 'flight' );
+    var flight = document.getElementById( string );
     while (flight.firstChild) {   
       flight.removeChild(flight.firstChild);
     }
-
-    this.state.flightsearch.state.options.forEach( function( option, index) {
-      console.log( this.state.people )
-      var cost = document.createElement( 'p' );
-      var outbound = document.createElement( 'p' );
-      var inbound = document.createElement( 'p' );
-      cost.innerHTML = "Cost: £" + ( option.cost  ) ;
-      console.log( option.cost )
-      console.log( option.outboundCarrier )
-      console.log( option.inboundCarrier )
-
-      this.state.flightsearch.state.options.forEach( function( option, index) {
 
         var cost = document.createElement( 'p' );
         var outbound = document.createElement( 'p' );
@@ -32,21 +20,21 @@ DisplayFlights.prototype = {
         var uber = document.createElement( 'p' );
         var total = document.createElement( 'p' );
 
-        outbound.innerHTML = "Outbound Carrier: " + option.outboundCarrier 
-        inbound.innerHTML = "Inbound Carrier: " + option.inboundCarrier 
-        cost.innerHTML = "Cost of flights: £" + (option.cost * this.state.people);
+        console.log(this.state)
+
+        outbound.innerHTML = "Outbound Carrier: " + this.state.flightsearch.state.option1.outboundCarrier 
+        inbound.innerHTML = "Inbound Carrier: " + this.state.flightsearch.state.option1.inboundCarrier 
+        cost.innerHTML = "Cost of flights: £" + (this.state.flightcost * this.state.people);
         uber.innerHTML = "Cost of Uber: £" + this.state.uberTotal1;
 
-        total.innerHTML = "Total Transport Cost: £" + (this.state.uberTotal1 + (option.cost * this.state.people))
+        total.innerHTML = "Total Transport Cost: £" + (this.state.uberTotal1 + (this.state.flightcost * this.state.people))
 
         flight.appendChild( cost )
         flight.appendChild( outbound )
         flight.appendChild( inbound )
         flight.appendChild( uber )
         flight.appendChild( total )
-      })
-    })
-  }
+      }
 }
 
 

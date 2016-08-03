@@ -21,6 +21,7 @@ var State = function() {
    this.departDate = "";
    this.returnDate = 0;
    this.allFlights = {};
+   this.flightcost = 0;
    this.flightsearch = {};
    this.homeLat = "55.946831";
    this.homeLng = "-3.202032";

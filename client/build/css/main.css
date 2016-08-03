@@ -108,7 +108,12 @@ h5 {
  height:70px;
 }
 
-.container {
+.topcontainer {
+ width:90%;
+ padding: 0 5%;
+}
+
+.bodycontainer {
  width:90%;
  padding: 0 5%;
 }
@@ -128,6 +133,7 @@ h5 {
  height:200px;
  float:right;
  padding:5%;
+ padding-top: 0px;
  margin-top: 25px;
  background-color:#ADD8E6 ;
  position:relative;
@@ -170,6 +176,53 @@ position: absolute;
 #container_body{
 padding:20px;
 }
+
+
+.packages {
+float: right;
+top: 0px;
+}
+
+#package1_control {
+  display:inline-block;
+  padding-right: 120px;
+}
+
+#package2_control {
+  display:inline-block;
+  padding-right: 120px;
+  
+}
+
+#package3_control {
+  display:inline-block;
+  padding-right: 120px;
+
+}
+
+#Budget {
+  z-index:100000;
+  color:grey;
+}
+
+#Nights {
+  z-index:100000;
+  color:grey;
+}
+
+#People {
+  z-index:100000;
+  color:grey;
+}
+
+
+
+
+
+
+
+
+
 .form_title{
 font-size:35px;
 color:#141823  ;

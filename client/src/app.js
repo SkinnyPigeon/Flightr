@@ -13,31 +13,32 @@ var capitalize = function( string ) {
 }
 
 window.onload = function(){
-  var form = new Form();
-  var signIn = document.getElementById( 'signIn' )
-  var showForm = document.getElementById( 'container' )
-  signIn.onclick = function(e) {
-    console.log( "clicked" )
-    showForm.style.display = "block"
-  }
+  // var form = new Form();
+  // var signIn = document.getElementById( 'signIn' )
+  // var showForm = document.getElementById( 'container' )
+  // signIn.onclick = function(e) {
+  //   console.log( "clicked" )
+  //   showForm.style.display = "block"
+  // }
 
-  var submission = document.getElementById( 'sign_user' ) 
-  submission.onclick = function(e) {
-    // e.preventDefault();
+  // var submission = document.getElementById( 'sign_user' ) 
+  // submission.onclick = function(e) {
+  //   // e.preventDefault();
 
-    form.submit();
-    console.log( "hello")
-  }
+  //   form.submit();
+  //   console.log( "hello")
+  // }
 
   state = new State()
-  display( 'people', state.people )
-  display( 'nightslider', state.nights )
+  display( 'People', state.people )
   dateSetter()
   var nightslider = document.getElementById( 'nightslider' );
+  var nights = document.getElementById( 'Nights' );
+  display( 'Nights', state.nights )
 
   nightslider.onchange = function() {
     state.nights = nightslider.value
-    display('nightslider', state.nights)
+    display('Nights', state.nights)
   }
 
   var date = document.getElementById('check_in');
@@ -48,24 +49,24 @@ window.onload = function(){
   }
 
   var slider = document.getElementById( 'slider' );
-  var budget = document.getElementById( 'budget' );
+  var budget = document.getElementById( 'Budget' );
   var p = document.createElement( 'p' )
   state.cost = slider.value
   console.log( state.cost )
 
-  p.innerHTML = slider.value
+  p.innerHTML = "Budget: " + slider.value
   budget.appendChild( p )
 
   slider.onchange = function(e) {
     state.cost = slider.value
-    display('budget', state.cost);
+    display('Budget', state.cost);
   }
 
   var peopleSlider = document.getElementById( 'people' )
   // state.people = peopleSlider.value
   peopleSlider.onchange = function(e) {
     state.people = peopleSlider.value
-    display( 'people_slider', state.people )
+    display( 'People', state.people )
   }
 
   var  flightUrl = "http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/GB/GBP/en-GB/EDI/anywhere/anytime/anytime?apiKey=eu863416336220144245856861714199"
@@ -99,12 +100,13 @@ var display = function(string, item) {
   // option.style.display = "block"
   option.innerHTML = ""
   var p = document.createElement( 'p' )
-  p.innerHTML = item
+  p.innerHTML = string + ": " + item
   option.appendChild( p )
 }
 
 
 var updateBudget = function() {
+  state.flightcost = state.flightsearch.state.options[0].cost * state.people
   state.budget = state.cost - ( state.flightsearch.state.options[0].cost * state.people )
   console.log( "Budget: ", state.budget )
 }
@@ -344,14 +346,14 @@ function requestUber4(){
       state.uberTotal3 = (state.airport2hotel3 + state.home2airport)*2
       
     }
-    var hotelViewer1 = new HotelView( hotelSearch.pickThree[0], state.uberTotal1, 'hotels', state.nights )
+    // var hotelViewer1 = new HotelView( hotelSearch.pickThree[0], state.uberTotal1, 'hotels', state.nights )
 
-    var hotelViewer2 = new HotelView( hotelSearch.pickThree[1], state.uberTotal2, 'hotels', state.nights )
+    // var hotelViewer2 = new HotelView( hotelSearch.pickThree[1], state.uberTotal2, 'hotels', state.nights )
 
-    var hotelViewer3 = new HotelView( hotelSearch.pickThree[2], state.uberTotal3, 'hotels', state.nights )
+    // var hotelViewer3 = new HotelView( hotelSearch.pickThree[2], state.uberTotal3, 'hotels', state.nights )
     
     var displayFlights = new DisplayFlights( state )
-    displayFlights.display()
+    displayFlights.display("p1")
   }
 
 
