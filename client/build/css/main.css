@@ -186,6 +186,12 @@ top: 0px;
 color:grey;
 }
 
+.package {
+  padding: 25px;
+  padding-top: 0px;
+  display: inline-block;
+}
+
 
 #package1_control:hover .show {
   padding-right: 15px;
@@ -197,13 +203,13 @@ color:grey;
 }
 
 #package2_control:hover .show {
-  display:inline-block;
+  display: inline-block;
   padding-right: 15px;
   
 }
 
 #package3_control:hover .show {
-  display:inline-block;
+  display: inline-block;
   padding-right: 15px;
 
 }
