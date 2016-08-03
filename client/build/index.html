@@ -124,13 +124,19 @@
         <div id="errorBox"></div>
          <input type="text" name="Name" value="" placeholder="First Name"  class="input_name" >
          <input type="text" name="LastName" value="" placeholder="Last Name" class="input_name" >
+         <div class="addressorpostcode">
+          <form name="address_form" >
+          <div id="errorBox"></div>
+           <input type="text" name="Address" value="" placeholder="Address"  class="input_address" >
+           <input type="text" name="Postcode" value="" placeholder="Postcode" class="input_address" >
+            
+         </div>
           
        </div>
+
+
        <div id="email_form">
          <input type="text" name="Email" value=""  placeholder="Your Email" class="input_email">
-       </div>
-       <div id="Re_email_form">
-         <input type="text" name="enterEmail" value=""  placeholder="Re-enter Email" class="input_Re_email">
        </div>
        <div id="password_form">
          <input type="password" name="Password" value=""  placeholder="New Password" class="input_password">
@@ -139,7 +145,8 @@
          <input type="password" name="enterPassword" value=""  placeholder="Re-Enter Password" class="input_Re_password">
        </div>
         <div>
-         <p id="sign_user" onClick="Submit()">Sign Up </p>
+         <!-- <p id="sign_user" onClick="Submit()">Sign Up </p> -->
+         <p id="sign_user">Sign Up </p>
        </div>
       </form>
      </div>

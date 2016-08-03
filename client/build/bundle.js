@@ -40,8 +40,9 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 	var Flights = __webpack_require__( 1 )
@@ -52,20 +53,29 @@
 	var hotelSearch;
 	var code;
 	
+	var Form = __webpack_require__( 142 );
 	
 	var capitalize = function( string ) {
 	  return string.charAt(0).toUpperCase() + string.slice(1);
 	}
 	
-	
-	
 	window.onload = function(){
+	  var form = new Form();
 	  var signIn = document.getElementById( 'signIn' )
 	  var showForm = document.getElementById( 'container' )
 	  signIn.onclick = function(e) {
 	    console.log( "clicked" )
 	    showForm.style.display = "block"
 	  }
+	
+	  var submission = document.getElementById( 'sign_user' ) 
+	  submission.onclick = function(e) {
+	    // e.preventDefault();
+	
+	    form.submit();
+	    console.log( "hello")
+	  }
+	
 	  state = new State()
 	  display( 'people_slider', state.people )
 	  display( 'nights', state.nights )
@@ -334,89 +344,6 @@
 	
 	}
 	
-	var Form = function() {
-	
-	  function Submit(){
-	   var emailRegex = /^[A-Za-z0-9._]*\@[A-Za-z]*\.[A-Za-z]{2,5}$/;
-	   var fname = document.form.Name.value,
-	    lname = document.form.LastName.value,
-	    femail = document.form.Email.value,
-	    freemail = document.form.enterEmail.value,
-	    fpassword = document.form.Password.value,
-	    freepassword = document.form.enterPassword.value
-	     
-	   if( fname == "" )
-	     {
-	       document.form.Name.focus() ;
-	    document.getElementById("errorBox").innerHTML = "enter the first name";
-	       return false;
-	     }
-	   if( lname == "" )
-	     {
-	       document.form.LastName.focus() ;
-	     document.getElementById("errorBox").innerHTML = "enter the last name";
-	       return false;
-	     }
-	      
-	     if (femail == "" )
-	   {
-	    document.form.Email.focus();
-	    document.getElementById("errorBox").innerHTML = "enter the email";
-	    return false;
-	    }else if(!emailRegex.test(femail)){
-	    document.form.Email.focus();
-	    document.getElementById("errorBox").innerHTML = "enter the valid email";
-	    return false;
-	    }
-	     
-	     if (freemail == "" )
-	   {
-	    document.form.enterEmail.focus();
-	    document.getElementById("errorBox").innerHTML = "Re-enter the email";
-	    return false;
-	    }else if(!emailRegex.test(freemail)){
-	    document.form.enterEmail.focus();
-	    document.getElementById("errorBox").innerHTML = "Re-enter the valid email";
-	    return false;
-	    }
-	     
-	    if(freemail !=  femail){
-	     document.form.enterEmail.focus();
-	     document.getElementById("errorBox").innerHTML = "emails are not matching, re-enter again";
-	     return false;
-	     }
-	     
-	     
-	   if(fpassword == "")
-	    {
-	     document.form.Password.focus();
-	     document.getElementById("errorBox").innerHTML = "enter the password";
-	     return false;
-	    }
-	
-	    if(freepassword == "")
-	     {
-	      document.form.Password.focus();
-	      document.getElementById("errorBox").innerHTML = "enter the password";
-	      return false;
-	     }
-	     
-	    if(freepassword !=  fepassword){
-	     document.form.enterEmail.focus();
-	     document.getElementById("errorBox").innerHTML = "passwords are not matching, re-enter again";
-	     return false;
-	     } 
-	
-	    if(fname != '' && lname != '' && femail != '' && freemail != '' && fpassword != '' ){
-	     document.getElementById("errorBox").innerHTML = "form submitted successfully";
-	     }
-	
-	
-	
-	       
-	  }
-	} 
-	
 	
 	
 	
@@ -424,7 +351,8 @@
 
 
 /***/ },
-/* 1 */
+
+/***/ 1:
 /***/ function(module, exports, __webpack_require__) {
 
 	var State = __webpack_require__(2)
@@ -506,7 +434,8 @@
 	module.exports = Flights;
 
 /***/ },
-/* 2 */
+
+/***/ 2:
 /***/ function(module, exports) {
 
 	var State = function() {
@@ -549,7 +478,8 @@
 	module.exports = State;
 
 /***/ },
-/* 3 */
+
+/***/ 3:
 /***/ function(module, exports) {
 
 	var cost;
@@ -617,7 +547,8 @@
 	module.exports = Hotels;
 
 /***/ },
-/* 4 */
+
+/***/ 4:
 /***/ function(module, exports) {
 
 	var DisplayFlights = function( options, people ) {
@@ -658,7 +589,8 @@
 
 
 /***/ },
-/* 5 */
+
+/***/ 5:
 /***/ function(module, exports) {
 
 	var HotelView = function( hotels, nights ) {
@@ -680,6 +612,113 @@
 	
 	module.exports = HotelView;
 
+/***/ },
+
+/***/ 142:
+/***/ function(module, exports) {
+
+	var Form = function() {
+	}
+	
+	Form.prototype = {
+	
+	
+	  submit: function(e){
+	    console.log( "HIYA" )
+	    
+	
+	   var emailRegex = /^[A-Za-z0-9._]*\@[A-Za-z]*\.[A-Za-z]{2,5}$/;
+	   var fname = document.form.Name.value
+	    lname = document.form.LastName.value
+	    femail = document.form.Email.value
+	    freemail = document.form.enterEmail.value
+	    fpassword = document.form.Password.value
+	    freepassword = document.form.enterPassword.value
+	     
+	   if( fname === "" )
+	     {
+	       document.form.Name.focus() ;
+	    document.getElementById("errorBox").innerHTML = "enter the first name";
+	       return false;
+	     }
+	   if( lname === "" )
+	     {
+	       document.form.LastName.focus() ;
+	     document.getElementById("errorBox").innerHTML = "enter the last name";
+	       return false;
+	     }
+	      
+	     if (femail === "" )
+	   {
+	    document.form.Email.focus();
+	    document.getElementById("errorBox").innerHTML = "enter the email";
+	    return false;
+	    }else if(!emailRegex.test(femail)){
+	    document.form.Email.focus();
+	    document.getElementById("errorBox").innerHTML = "enter the valid email";
+	    return false;
+	    }
+	     
+	     if (freemail === "" )
+	   {
+	    document.form.enterEmail.focus();
+	    document.getElementById("errorBox").innerHTML = "Re-enter the email";
+	    return false;
+	    }else if(!emailRegex.test(freemail)){
+	    document.form.enterEmail.focus();
+	    document.getElementById("errorBox").innerHTML = "Re-enter the valid email";
+	    return false;
+	    }
+	     
+	    if(freemail !=  femail){
+	     document.form.enterEmail.focus();
+	     document.getElementById("errorBox").innerHTML = "emails are not matching, re-enter again";
+	     return false;
+	     }
+	     
+	     
+	   if(fpassword === "")
+	    {
+	     document.form.Password.focus();
+	     document.getElementById("errorBox").innerHTML = "enter the password";
+	     return false;
+	    }
+	
+	    if(freepassword === "")
+	     {
+	      document.form.Password.focus();
+	      document.getElementById("errorBox").innerHTML = "enter the password";
+	      return false;
+	     }
+	     
+	    if(freepassword !=  fepassword){
+	     document.form.enterEmail.focus();
+	     document.getElementById("errorBox").innerHTML = "passwords are not matching, re-enter again";
+	     return false;
+	     } 
+	
+	    if(fname != '' && lname != '' && femail != '' && freemail != '' && fpassword != '' && fmonth != '' && fday != '' && fyear != ''){
+	     document.getElementById("errorBox").innerHTML = "form submitted successfully";
+	     }
+	
+	     var input = document.getElementsByName( 'name' )
+	     var name = input.value
+	     console.log( "I Am Posting")
+	
+	     var request = XMLHttpRequest();
+	     request.open( 'POST', '/users' );
+	     request.setRequestHeader("Content-Type", "application/json")
+	        request.onload = function() {
+	          if( request.status === 200 ) {
+	          }
+	  }
+	  request.send( JSON.stringify( { name: name } ) )
+	} 
+	}
+	module.exports = Form;
+
+
 /***/ }
-/******/ ]);
+
+/******/ });
 //# sourceMappingURL=bundle.js.map

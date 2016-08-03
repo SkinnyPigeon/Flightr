@@ -334,6 +334,10 @@ h1 {
  padding:5px;
  font-size:18px;
  }
+
+.addressorpostcode {
+ padding:10px 0 10px 0px;
+} 
 #password_form{
  padding:10px 0 10px 0px;
  }
@@ -379,4 +383,3 @@ select{
 #errorBox{
  color:#F00;
  }
-- See more at: http://www.webcodehelpers.com/2013/11/registration-form-validation-using-javascript-with-example.html#sthash.4UZlxTIm.dpuf
