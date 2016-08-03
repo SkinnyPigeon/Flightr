@@ -17,6 +17,7 @@ DisplayFlights.prototype = {
       flight.removeChild(flight.firstChild);
     }
 
+
         var cost = document.createElement( 'p' );
         var outbound = document.createElement( 'p' );
         var inbound = document.createElement( 'p' );
@@ -35,6 +36,7 @@ DisplayFlights.prototype = {
         uber.innerHTML = "Cost of Uber: £" + this.uberTotal;
         accomodation.innerHTML = "Accomodation: £" + this.hotelObject.lowRate;
         accomodationName.innerHTML = "Name: " + this.hotelObject.localizedName;
+        packageTotal.innerHTML = ""
         packageTotal.innerHTML = "Total: " + (this.state.flightcost + this.uberTotal + parseFloat(this.hotelObject.lowRate)).toFixed(2);
 
         total.innerHTML = "Total Transport Cost: £" + (this.uberTotal + this.state.flightcost).toFixed(2)

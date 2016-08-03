@@ -59,21 +59,6 @@
 	}
 	
 	window.onload = function(){
-	  // var form = new Form();
-	  // var signIn = document.getElementById( 'signIn' )
-	  // var showForm = document.getElementById( 'container' )
-	  // signIn.onclick = function(e) {
-	  //   console.log( "clicked" )
-	  //   showForm.style.display = "block"
-	  // }
-	
-	  // var submission = document.getElementById( 'sign_user' ) 
-	  // submission.onclick = function(e) {
-	  //   // e.preventDefault();
-	
-	  //   form.submit();
-	  //   console.log( "hello")
-	  // }
 	
 	  state = new State()
 	  display( 'People', state.people )
@@ -397,12 +382,6 @@
 	      
 	    }
 	
-	
-	    // var hotelViewer1 = new HotelView( hotelSearch.pickThree[0], state.uberTotal1, 'hotels', state.nights )
-	
-	    // var hotelViewer2 = new HotelView( hotelSearch.pickThree[1], state.uberTotal2, 'hotels', state.nights )
-	
-	    // var hotelViewer3 = new HotelView( hotelSearch.pickThree[2], state.uberTotal3, 'hotels', state.nights )
 	    
 	    var displayFlights1 = new DisplayFlights( state, state.uberTotal1, state.hotelobject1 )
 	    displayFlights1.display("p1", "package1_control")
@@ -412,10 +391,191 @@
 	
 	    var displayFlights3 = new DisplayFlights( state, state.uberTotal3, state.hotelobject3 )
 	    displayFlights3.display("p3", "package3_control")
+	
+	    chart1()
+	    chart2()
+	    chart3()
+	
 	  }
 	
 	
 	}
+	
+	
+	var chart1 = function () {
+	
+	  var container = document.getElementById( "p1Chart" );
+	
+	  var chart = new Highcharts.Chart({
+	
+	    chart: {
+	      width: 300,
+	      height: 300,
+	      type: 'pie',
+	      renderTo: container,
+	      backgroundColor: "transparent",
+	      options3d: {
+	          enabled: true,
+	          alpha: 45
+	      }
+	
+	    },
+	
+	    title: {
+	      text: "Holiday"
+	    },
+	
+	    plotOptions: {
+	        pie: {
+	            innerSize: 100,
+	            depth: 45
+	        }
+	    },
+	
+	    series: [{
+	                name: 'Breakdown',
+	                colorByPoint: true,
+	                data: [{
+	                    name: 'Flight',
+	                    y: state.flightcost,
+	                    sliced: true,
+	                    selected: true
+	                }, {
+	                    name: 'Hotel',
+	                    y: parseFloat( state.hotelobject1.lowRate ),
+	                    sliced: true,
+	                    selected: true
+	                }, {
+	                    name: 'Über',
+	                    y: state.uberTotal1,
+	                    sliced: true,
+	                    selected: true
+	                }]
+	            }],
+	
+	    credits: {
+	      enabled: false
+	    },
+	
+	  })
+	} 
+	
+	var chart2 = function () {
+	
+	  var container = document.getElementById( "p2Chart" );
+	
+	  var chart = new Highcharts.Chart({
+	
+	    chart: {
+	      width: 300,
+	      height: 300,
+	      type: 'pie',
+	      renderTo: container,
+	      backgroundColor: "transparent",
+	      options3d: {
+	          enabled: true,
+	          alpha: 45
+	      }
+	
+	    },
+	
+	    title: {
+	      text: "Holiday"
+	    },
+	
+	    plotOptions: {
+	        pie: {
+	            innerSize: 100,
+	            depth: 45
+	        }
+	    },
+	
+	    series: [{
+	                name: 'Breakdown',
+	                colorByPoint: true,
+	                data: [{
+	                    name: 'Flight',
+	                    y: state.flightcost,
+	                    sliced: true,
+	                    selected: true
+	                }, {
+	                    name: 'Hotel',
+	                    y: parseFloat( state.hotelobject2.lowRate ),
+	                    sliced: true,
+	                    selected: true
+	                }, {
+	                    name: 'Über',
+	                    y: state.uberTotal2,
+	                    sliced: true,
+	                    selected: true
+	                }]
+	            }],
+	
+	    credits: {
+	      enabled: false
+	    },
+	
+	  })
+	} 
+	
+	var chart3 = function () {
+	
+	  var container = document.getElementById( "p3Chart" );
+	
+	  var chart = new Highcharts.Chart({
+	
+	    chart: {
+	      width: 300,
+	      height: 300,
+	      type: 'pie',
+	      renderTo: container,
+	      backgroundColor: "transparent",
+	      options3d: {
+	          enabled: true,
+	          alpha: 45
+	      }
+	
+	    },
+	
+	    title: {
+	      text: "Holiday"
+	    },
+	
+	    plotOptions: {
+	        pie: {
+	            innerSize: 100,
+	            depth: 45
+	        }
+	    },
+	
+	    series: [{
+	                name: 'Breakdown',
+	                colorByPoint: true,
+	                data: [{
+	                    name: 'Flight',
+	                    y: state.flightcost,
+	                    sliced: true,
+	                    selected: true
+	                }, {
+	                    name: 'Hotel',
+	                    y: parseFloat( state.hotelobject3.lowRate ),
+	                    sliced: true,
+	                    selected: true
+	                }, {
+	                    name: 'Über',
+	                    y: state.uberTotal3,
+	                    sliced: true,
+	                    selected: true
+	                }]
+	            }],
+	
+	    credits: {
+	      enabled: false
+	    },
+	
+	  })
+	} 
+	
 	
 	
 
@@ -648,6 +808,7 @@
 	      flight.removeChild(flight.firstChild);
 	    }
 	
+	
 	        var cost = document.createElement( 'p' );
 	        var outbound = document.createElement( 'p' );
 	        var inbound = document.createElement( 'p' );
@@ -666,6 +827,7 @@
 	        uber.innerHTML = "Cost of Uber: £" + this.uberTotal;
 	        accomodation.innerHTML = "Accomodation: £" + this.hotelObject.lowRate;
 	        accomodationName.innerHTML = "Name: " + this.hotelObject.localizedName;
+	        packageTotal.innerHTML = ""
 	        packageTotal.innerHTML = "Total: " + (this.state.flightcost + this.uberTotal + parseFloat(this.hotelObject.lowRate)).toFixed(2);
 	
 	        total.innerHTML = "Total Transport Cost: £" + (this.uberTotal + this.state.flightcost).toFixed(2)

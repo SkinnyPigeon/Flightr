@@ -190,12 +190,18 @@ color:grey;
   padding: 25px;
   padding-top: 0px;
   display: inline-block;
+  position: relative;
+}
+
+#p1Chart {
+  display: block;
 }
 
 
 #package1_control:hover .show {
   padding-right: 15px;
   display: inline-block;
+  position: relative;
 }
 
 .show{
@@ -205,12 +211,15 @@ color:grey;
 #package2_control:hover .show {
   display: inline-block;
   padding-right: 15px;
+  position: relative;
+
   
 }
 
 #package3_control:hover .show {
   display: inline-block;
   padding-right: 15px;
+
 
 }
 
