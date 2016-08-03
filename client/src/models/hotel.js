@@ -14,7 +14,7 @@ Hotels.prototype = {
   sort: function() {
     this.list.hotelList.forEach( function( hotel, index ) {
 
-      cost = parseInt(hotel.lowRate) * this.nights * 0.7;  
+      cost = parseInt(hotel.lowRate) * this.nights * 0.7 + 50;  
 
       if( this.budget >= cost && this.nights > 1  ) {
 

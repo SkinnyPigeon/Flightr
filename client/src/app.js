@@ -171,8 +171,9 @@ var flightClick = function( city ) {
 
       state.flightsearch.fillOptions( state.flightsearch.state.option1, state.flightsearch.state.option2 )
       console.log( state.flightsearch.state.options )
-      var displayFlights = new DisplayFlights( state.flightsearch.state.options )
-      displayFlights.display()
+      
+
+      
 
       updateBudget();
       hotelClick( city, code )
@@ -202,30 +203,55 @@ var hotelClick = function( city, code ) {
     // hotelSearch.order();
     // console.log( hotelSearch.order() )
     hotelSearch.select();
-    var hotelViewer = new HotelView( hotelSearch.pickThree, state.nights )
-    console.log( hotelSearch.pickThree )
+    console.log( hotelSearch.pickThree[0] )
+
+    // var hotelViewer = new HotelView( hotelSearch.pickThree[0], state.uberTotal1, 'hotels', state.nights )
 
     // hotelSearch = new Hotels( allHotels  )
     // hotelSearch.sort( state.budget, state.nights )
     // displayHotel = new HotelView( hotelSearch.budgetHotels, state.nights )
 
 
-    var getHotelLatLng = function(){
+    var getHotelLatLng1 = function(){
 
-      if(hotelSearch.budgetHotels[0]){
-        state.hotelLat = hotelSearch.budgetHotels[0].latitude
+      if(hotelSearch.pickThree[0]){
+        state.hotel1Lat = hotelSearch.pickThree[0].latitude
       }
-      if(hotelSearch.budgetHotels[0]){
-        state.hotelLng = hotelSearch.budgetHotels[0].longitude
+      if(hotelSearch.pickThree[0]){
+        state.hotel1Lng = hotelSearch.pickThree[0].longitude
       }
     }
-    getHotelLatLng()
+    var getHotelLatLng2 = function(){
+
+      if(hotelSearch.pickThree[1]){
+        state.hotel2Lat = hotelSearch.pickThree[1].latitude
+      }
+      if(hotelSearch.pickThree[1]){
+        state.hotel2Lng = hotelSearch.pickThree[1].longitude
+      }
+    }
+    var getHotelLatLng3 = function(){
+
+      if(hotelSearch.pickThree[2]){
+        state.hotel3Lat = hotelSearch.pickThree[2].latitude
+      }
+      if(hotelSearch.pickThree[2]){
+        state.hotel3Lng = hotelSearch.pickThree[2].longitude
+      }
+    }
+    
+    getHotelLatLng1()
+    getHotelLatLng2()
+    getHotelLatLng3()
+console.log("Hotel LNG 3 ", state.hotel3Lng)
+console.log("Hotel Lat 3 ", state.hotel3Lat)
+
     // console.log(hotelSearch)
 
     // console.log(state.hotelLat)
     // console.log(state.hotelLng)
     getAirportLatLng(code);
-    console.log( state.inLat )
+    // console.log( state.inLat )
  
   }
 }
@@ -243,17 +269,19 @@ function getAirportLatLng(code){
       var uber = JSON.parse(request.responseText);
       state.inLat = uber[0].lat
       state.inLng = uber[0].lng
-      console.log( uber )
-      console.log( state.inLat)
-      console.log( state.hotelLat )
+      
     
 
- console.log(state.homeLat)   
- console.log(state.homeLng)   
- console.log(state.outLat)   
- console.log(state.outLng)   
+ // console.log(state.hotelLat)   
+ // console.log(state.hotelLng)   
+ // console.log(state.inLat)   
+ // console.log(state.inLng)   
  requestUber1()
  requestUber2()
+ requestUber3()
+ requestUber4()
+
+
 
     }
   }
@@ -266,27 +294,22 @@ var request = new XMLHttpRequest();
 request.open( "GET", url )
 request.send( null );
 
+    request.onload = function(){
+      if(request.status === 200){
 
-
-
-
-request.onload = function(){
-  if(request.status === 200){
-
-var uber = JSON.parse(request.responseText);
-state.home2airport = uber.prices[0].high_estimate
-console.log(state.home2airport)
-console.log(uber)
+    var uber = JSON.parse(request.responseText);
+    state.home2airport = uber.prices[0].high_estimate
+    console.log(state.home2airport1)
+    console.log(uber)
+    }
   }
-
-}
 }
 // console.log(state.hotelLat)
 
 function requestUber2(){
 
 
-  var url = "https://api.uber.com/v1/estimates/price?start_latitude=" + state.inLat + "&start_longitude=" + state.inLng + "&end_latitude=" + state.hotelLat + "&end_longitude=" + state.hotelLng + "&server_token=d8Smu8d825OY2EOEiiCSih559Zw4FEht7slwXKOt"
+  var url = "https://api.uber.com/v1/estimates/price?start_latitude=" + state.inLat + "&start_longitude=" + state.inLng + "&end_latitude=" + state.hotel1Lat + "&end_longitude=" + state.hotel1Lng + "&server_token=d8Smu8d825OY2EOEiiCSih559Zw4FEht7slwXKOt"
   var request = new XMLHttpRequest();
   request.open( "GET", url )
   request.send( null );
@@ -294,16 +317,67 @@ function requestUber2(){
   request.onload = function(){
     if(request.status === 200){
       var uber = JSON.parse(request.responseText);
-      state.airport2hotel = uber.prices[0].high_estimate
+      state.airport2hotel1 = uber.prices[0].high_estimate
       console.log(state.airport2hotel)
       console.log(uber)
+      state.uberTotal1 = (state.airport2hotel1 + state.home2airport)*2
+      console.log(state.uberTotal)
+    
     }
+  }
+}
+
+function requestUber3(){
+
+
+  var url = "https://api.uber.com/v1/estimates/price?start_latitude=" + state.inLat + "&start_longitude=" + state.inLng + "&end_latitude=" + state.hotel2Lat + "&end_longitude=" + state.hotel2Lng + "&server_token=d8Smu8d825OY2EOEiiCSih559Zw4FEht7slwXKOt"
+  var request = new XMLHttpRequest();
+  request.open( "GET", url )
+  request.send( null );
+
+  request.onload = function(){
+    if(request.status === 200){
+      var uber = JSON.parse(request.responseText);
+      state.airport2hotel2 = uber.prices[0].high_estimate
+      
+      
+      state.uberTotal2 = (state.airport2hotel2 + state.home2airport)*2
+      console.log(state.uberTotal1)
+      console.log(state.uberTotal2)
+      console.log(state.uberTotal3)
+
+    }
+  }
 }
 
 
+function requestUber4(){
+
+
+  var url = "https://api.uber.com/v1/estimates/price?start_latitude=" + state.inLat + "&start_longitude=" + state.inLng + "&end_latitude=" + state.hotel3Lat + "&end_longitude=" + state.hotel3Lng + "&server_token=d8Smu8d825OY2EOEiiCSih559Zw4FEht7slwXKOt"
+  var request = new XMLHttpRequest();
+  request.open( "GET", url )
+  request.send( null );
+
+  request.onload = function(){
+    if(request.status === 200){
+      var uber = JSON.parse(request.responseText);
+      state.airport2hotel3 = uber.prices[0].high_estimate
+     
+      state.uberTotal3 = (state.airport2hotel3 + state.home2airport)*2
+      
+    }
+    var hotelViewer1 = new HotelView( hotelSearch.pickThree[0], state.uberTotal1, 'hotel1', state.nights )
+
+    var hotelViewer2 = new HotelView( hotelSearch.pickThree[1], state.uberTotal2, 'hotel2', state.nights )
+
+    var hotelViewer3 = new HotelView( hotelSearch.pickThree[2], state.uberTotal3, 'hotel3', state.nights )
+    
+    var displayFlights = new DisplayFlights( state )
+    displayFlights.display()
+  }
+
+
 }
-
-
-
 
 

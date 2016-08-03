@@ -217,8 +217,9 @@
 	
 	      state.flightsearch.fillOptions( state.flightsearch.state.option1, state.flightsearch.state.option2 )
 	      console.log( state.flightsearch.state.options )
-	      var displayFlights = new DisplayFlights( state.flightsearch.state.options )
-	      displayFlights.display()
+	      
+	
+	      
 	
 	      updateBudget();
 	      hotelClick( city, code )
@@ -248,30 +249,55 @@
 	    // hotelSearch.order();
 	    // console.log( hotelSearch.order() )
 	    hotelSearch.select();
-	    var hotelViewer = new HotelView( hotelSearch.pickThree, state.nights )
-	    console.log( hotelSearch.pickThree )
+	    console.log( hotelSearch.pickThree[0] )
+	
+	    // var hotelViewer = new HotelView( hotelSearch.pickThree[0], state.uberTotal1, 'hotels', state.nights )
 	
 	    // hotelSearch = new Hotels( allHotels  )
 	    // hotelSearch.sort( state.budget, state.nights )
 	    // displayHotel = new HotelView( hotelSearch.budgetHotels, state.nights )
 	
 	
-	    var getHotelLatLng = function(){
+	    var getHotelLatLng1 = function(){
 	
-	      if(hotelSearch.budgetHotels[0]){
-	        state.hotelLat = hotelSearch.budgetHotels[0].latitude
+	      if(hotelSearch.pickThree[0]){
+	        state.hotel1Lat = hotelSearch.pickThree[0].latitude
 	      }
-	      if(hotelSearch.budgetHotels[0]){
-	        state.hotelLng = hotelSearch.budgetHotels[0].longitude
+	      if(hotelSearch.pickThree[0]){
+	        state.hotel1Lng = hotelSearch.pickThree[0].longitude
 	      }
 	    }
-	    getHotelLatLng()
+	    var getHotelLatLng2 = function(){
+	
+	      if(hotelSearch.pickThree[1]){
+	        state.hotel2Lat = hotelSearch.pickThree[1].latitude
+	      }
+	      if(hotelSearch.pickThree[1]){
+	        state.hotel2Lng = hotelSearch.pickThree[1].longitude
+	      }
+	    }
+	    var getHotelLatLng3 = function(){
+	
+	      if(hotelSearch.pickThree[2]){
+	        state.hotel3Lat = hotelSearch.pickThree[2].latitude
+	      }
+	      if(hotelSearch.pickThree[2]){
+	        state.hotel3Lng = hotelSearch.pickThree[2].longitude
+	      }
+	    }
+	    
+	    getHotelLatLng1()
+	    getHotelLatLng2()
+	    getHotelLatLng3()
+	console.log("Hotel LNG 3 ", state.hotel3Lng)
+	console.log("Hotel Lat 3 ", state.hotel3Lat)
+	
 	    // console.log(hotelSearch)
 	
 	    // console.log(state.hotelLat)
 	    // console.log(state.hotelLng)
 	    getAirportLatLng(code);
-	    console.log( state.inLat )
+	    // console.log( state.inLat )
 	 
 	  }
 	}
@@ -289,17 +315,19 @@
 	      var uber = JSON.parse(request.responseText);
 	      state.inLat = uber[0].lat
 	      state.inLng = uber[0].lng
-	      console.log( uber )
-	      console.log( state.inLat)
-	      console.log( state.hotelLat )
+	      
 	    
 	
-	 console.log(state.homeLat)   
-	 console.log(state.homeLng)   
-	 console.log(state.outLat)   
-	 console.log(state.outLng)   
+	 // console.log(state.hotelLat)   
+	 // console.log(state.hotelLng)   
+	 // console.log(state.inLat)   
+	 // console.log(state.inLng)   
 	 requestUber1()
 	 requestUber2()
+	 requestUber3()
+	 requestUber4()
+	
+	
 	
 	    }
 	  }
@@ -312,27 +340,22 @@
 	request.open( "GET", url )
 	request.send( null );
 	
+	    request.onload = function(){
+	      if(request.status === 200){
 	
-	
-	
-	
-	request.onload = function(){
-	  if(request.status === 200){
-	
-	var uber = JSON.parse(request.responseText);
-	state.home2airport = uber.prices[0].high_estimate
-	console.log(state.home2airport)
-	console.log(uber)
+	    var uber = JSON.parse(request.responseText);
+	    state.home2airport = uber.prices[0].high_estimate
+	    console.log(state.home2airport1)
+	    console.log(uber)
+	    }
 	  }
-	
-	}
 	}
 	// console.log(state.hotelLat)
 	
 	function requestUber2(){
 	
 	
-	  var url = "https://api.uber.com/v1/estimates/price?start_latitude=" + state.inLat + "&start_longitude=" + state.inLng + "&end_latitude=" + state.hotelLat + "&end_longitude=" + state.hotelLng + "&server_token=d8Smu8d825OY2EOEiiCSih559Zw4FEht7slwXKOt"
+	  var url = "https://api.uber.com/v1/estimates/price?start_latitude=" + state.inLat + "&start_longitude=" + state.inLng + "&end_latitude=" + state.hotel1Lat + "&end_longitude=" + state.hotel1Lng + "&server_token=d8Smu8d825OY2EOEiiCSih559Zw4FEht7slwXKOt"
 	  var request = new XMLHttpRequest();
 	  request.open( "GET", url )
 	  request.send( null );
@@ -340,17 +363,68 @@
 	  request.onload = function(){
 	    if(request.status === 200){
 	      var uber = JSON.parse(request.responseText);
-	      state.airport2hotel = uber.prices[0].high_estimate
+	      state.airport2hotel1 = uber.prices[0].high_estimate
 	      console.log(state.airport2hotel)
 	      console.log(uber)
+	      state.uberTotal1 = (state.airport2hotel1 + state.home2airport)*2
+	      console.log(state.uberTotal)
+	    
 	    }
+	  }
+	}
+	
+	function requestUber3(){
+	
+	
+	  var url = "https://api.uber.com/v1/estimates/price?start_latitude=" + state.inLat + "&start_longitude=" + state.inLng + "&end_latitude=" + state.hotel2Lat + "&end_longitude=" + state.hotel2Lng + "&server_token=d8Smu8d825OY2EOEiiCSih559Zw4FEht7slwXKOt"
+	  var request = new XMLHttpRequest();
+	  request.open( "GET", url )
+	  request.send( null );
+	
+	  request.onload = function(){
+	    if(request.status === 200){
+	      var uber = JSON.parse(request.responseText);
+	      state.airport2hotel2 = uber.prices[0].high_estimate
+	      
+	      
+	      state.uberTotal2 = (state.airport2hotel2 + state.home2airport)*2
+	      console.log(state.uberTotal1)
+	      console.log(state.uberTotal2)
+	      console.log(state.uberTotal3)
+	
+	    }
+	  }
 	}
 	
 	
+	function requestUber4(){
+	
+	
+	  var url = "https://api.uber.com/v1/estimates/price?start_latitude=" + state.inLat + "&start_longitude=" + state.inLng + "&end_latitude=" + state.hotel3Lat + "&end_longitude=" + state.hotel3Lng + "&server_token=d8Smu8d825OY2EOEiiCSih559Zw4FEht7slwXKOt"
+	  var request = new XMLHttpRequest();
+	  request.open( "GET", url )
+	  request.send( null );
+	
+	  request.onload = function(){
+	    if(request.status === 200){
+	      var uber = JSON.parse(request.responseText);
+	      state.airport2hotel3 = uber.prices[0].high_estimate
+	     
+	      state.uberTotal3 = (state.airport2hotel3 + state.home2airport)*2
+	      
+	    }
+	    var hotelViewer1 = new HotelView( hotelSearch.pickThree[0], state.uberTotal1, 'hotel1', state.nights )
+	
+	    var hotelViewer2 = new HotelView( hotelSearch.pickThree[1], state.uberTotal2, 'hotel2', state.nights )
+	
+	    var hotelViewer3 = new HotelView( hotelSearch.pickThree[2], state.uberTotal3, 'hotel3', state.nights )
+	    
+	    var displayFlights = new DisplayFlights( state )
+	    displayFlights.display()
+	  }
+	
+	
 	}
-	
-	
-	
 	
 	
 
@@ -497,10 +571,19 @@
 	   this.outLng = "-3.3615"; 
 	   this.inLat = "";
 	   this.inLng = "";
-	   this.hotelLat = "";
-	   this.hotelLng = "";
-	   this.home2airport = "";
-	   this.airport2hotel = "";
+	   this.hotel1Lat = "";
+	   this.hotel1Lng = "";
+	   this.hotel2Lat = "";
+	   this.hotel2Lng = "";
+	   this.hotel3Lat = "";
+	   this.hotel3Lng = "";
+	   this.home2airport = 0;
+	   this.airport2hotel1 = 0; 
+	   this.airport2hotel2 = 0; 
+	   this.airport2hotel3 = 0;
+	   this.uberTotal1 = 0;
+	   this.uberTotal2 = 0;
+	   this.uberTotal3 = 0;
 	}
 	
 	// State.prototype = {
@@ -531,7 +614,7 @@
 	  sort: function() {
 	    this.list.hotelList.forEach( function( hotel, index ) {
 	
-	      cost = parseInt(hotel.lowRate) * this.nights * 0.7;  
+	      cost = parseInt(hotel.lowRate) * this.nights * 0.7 + 50;  
 	
 	      if( this.budget >= cost && this.nights > 1  ) {
 	
@@ -583,6 +666,8 @@
 /* 4 */
 /***/ function(module, exports) {
 
+	
+	
 	// var State = function() {
 	//    this.options = [];
 	//    this.option1 = {
@@ -602,8 +687,8 @@
 	
 	// var sortedOptions = []
 	
-	var DisplayFlights = function( options ) {
-	  this.options = options
+	var DisplayFlights = function( state ) {
+	  this.state = state
 	// option 1 = where flight is direct and the inbound cost and outbound cost are covered by one quote 
 	// option 2 = where flight is direct and the inbound/ outbound quotes are seperate
 	//   var state = new State();
@@ -678,20 +763,28 @@
 	    while (flight.firstChild) {   
 	      flight.removeChild(flight.firstChild);
 	    }
-	    this.options.forEach( function( option, index) {
+	    this.state.flightsearch.state.options.forEach( function( option, index) {
 	
 	      var cost = document.createElement( 'p' );
 	      var outbound = document.createElement( 'p' );
 	      var inbound = document.createElement( 'p' );
-	      cost.innerHTML = "Cost: £" + option.cost;
-	      console.log( option.cost )
-	      console.log( option.outboundCarrier )
-	      console.log( option.inboundCarrier )
+	      var uber = document.createElement( 'p' );
+	      var total = document.createElement( 'p' );
+	      
+	   
+	      
 	      outbound.innerHTML = "Outbound Carrier: " + option.outboundCarrier 
 	      inbound.innerHTML = "Inbound Carrier: " + option.inboundCarrier 
+	      cost.innerHTML = "Cost of flights: £" + option.cost;
+	      uber.innerHTML = "Cost of Uber: £" + this.state.uberTotal1;
+	   
+	      total.innerHTML = "Total Transport Cost: £" + (this.state.uberTotal1 + option.cost)
+	
 	      flight.appendChild( cost )
 	      flight.appendChild( outbound )
 	      flight.appendChild( inbound )
+	      flight.appendChild( uber )
+	      flight.appendChild( total )
 	    })
 	  }
 	}
@@ -706,21 +799,24 @@
 /* 5 */
 /***/ function(module, exports) {
 
-	var HotelView = function( hotels, nights ) {
-	  this.hotels = hotels;
+	var HotelView = function( hotelo, uber, string, nights ) {
+	  this.hotelo = hotelo;
+	  this.uber = uber;
+	  this.string = string;
 	  this.nights = nights;
 	
-	  var hotel = document.getElementById( 'hotels' );
-	  hotel.innerHTML = "" 
-	  this.hotels.forEach( function(disHotel, index ) {
+	  var hotel = document.getElementById( this.string );
+	  console.log( "uber", this.uber )
+	
+	  hotel.innerHTML = ""  
 	    var p = document.createElement( 'p' );
-	    if( nights > 1 ) {
-	      p.innerHTML = "Name: " + disHotel.localizedName + " Cost: £" + (disHotel.lowRate * this.nights * 0.7 ).toFixed(2) 
+	    if( this.nights > 1 ) {
+	      p.innerHTML = "Name: " + this.hotelo.localizedName + " Cost: £" + (this.hotelo.lowRate * this.nights * 0.7 ).toFixed(2) + " Uber Total: " + this.uber
 	    } else {
-	      p.innerHTML = "Name: " + disHotel.localizedName + " Cost: £" + (disHotel.lowRate ).toFixed(2) 
+	      p.innerHTML = "Name: " + this.hotelo.localizedName + " Cost: £" + (this.hotelo.lowRate ).toFixed(2) + " Uber Total: " + this.uber
 	    }
+	
 	    hotel.appendChild( p )
-	  }.bind(this))
 	}
 	
 	module.exports = HotelView;

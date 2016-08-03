@@ -27,10 +27,19 @@ var State = function() {
    this.outLng = "-3.3615"; 
    this.inLat = "";
    this.inLng = "";
-   this.hotelLat = "";
-   this.hotelLng = "";
-   this.home2airport = "";
-   this.airport2hotel = "";
+   this.hotel1Lat = "";
+   this.hotel1Lng = "";
+   this.hotel2Lat = "";
+   this.hotel2Lng = "";
+   this.hotel3Lat = "";
+   this.hotel3Lng = "";
+   this.home2airport = 0;
+   this.airport2hotel1 = 0; 
+   this.airport2hotel2 = 0; 
+   this.airport2hotel3 = 0;
+   this.uberTotal1 = 0;
+   this.uberTotal2 = 0;
+   this.uberTotal3 = 0;
 }
 
 // State.prototype = {
