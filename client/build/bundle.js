@@ -40,9 +40,8 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 0:
+/******/ ([
+/* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Flights = __webpack_require__( 1 )
@@ -53,7 +52,7 @@
 	var hotelSearch;
 	var code;
 	
-	var Form = __webpack_require__( 142 );
+	var Form = __webpack_require__( 6 );
 	
 	var capitalize = function( string ) {
 	  return string.charAt(0).toUpperCase() + string.slice(1);
@@ -408,8 +407,7 @@
 
 
 /***/ },
-
-/***/ 1:
+/* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var State = __webpack_require__(2)
@@ -491,8 +489,7 @@
 	module.exports = Flights;
 
 /***/ },
-
-/***/ 2:
+/* 2 */
 /***/ function(module, exports) {
 
 	var State = function() {
@@ -543,8 +540,7 @@
 	module.exports = State;
 
 /***/ },
-
-/***/ 3:
+/* 3 */
 /***/ function(module, exports) {
 
 	var cost;
@@ -612,8 +608,7 @@
 	module.exports = Hotels;
 
 /***/ },
-
-/***/ 4:
+/* 4 */
 /***/ function(module, exports) {
 
 	var DisplayFlights = function( state ) {
@@ -673,8 +668,7 @@
 
 
 /***/ },
-
-/***/ 5:
+/* 5 */
 /***/ function(module, exports) {
 
 	var HotelView = function( hotelo, uber, string, nights ) {
@@ -700,8 +694,7 @@
 	module.exports = HotelView;
 
 /***/ },
-
-/***/ 142:
+/* 6 */
 /***/ function(module, exports) {
 
 	var Form = function() {
@@ -806,6 +799,5 @@
 
 
 /***/ }
-
-/******/ });
+/******/ ]);
 //# sourceMappingURL=bundle.js.map
