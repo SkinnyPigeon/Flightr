@@ -218,7 +218,7 @@
 	
 	
 	var hotelClick = function( city, code ) {
-	  var hotelUrl = "http://terminal2.expedia.com/x/mhotels/search?city=" + city.value.toUpperCase() + "&checkInDate=" + state.departDate + "&checkOutDate=" + state.returnDate + "&room1=3&apikey=aKNgay5CAT6lHkcUN0PW8nbb7Pup9PRM";
+	  var hotelUrl = "http://terminal2.expedia.com/x/mhotels/search?city=" + city.value.toUpperCase() + "&checkInDate=" + state.departDate + "&checkOutDate=" + state.returnDate + "&room1=3&apikey=iuTUoZJL24NJRFeviikGnRutV77LbjDx";
 	  var hotelsRequest = new XMLHttpRequest();
 	  hotelsRequest.open( "GET", hotelUrl )
 	  hotelsRequest.send( null );

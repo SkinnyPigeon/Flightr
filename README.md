@@ -1,47 +1,65 @@
-Server.js:::
+Project Flightr/Dur:Dur
+
+This is a web app which packages an entire trip away for the user based on their budget. The user inputs their budget, the departure date of their trip and the destination. The results returned include  the lowest costing direct return flights, total uber cost for the four journeys the user will be taking (home to departing airport, destination airport to hotel and vice versa) and then finally a choice of three hotels which they can afford from their remaining budget.
+
+Code Example
+
+This example of code solved one of the biggest problems we faced which was returning the full cost of return flights. The Skyscanner API used for the project displayed the price of flights in two formats. Some destinations returned the full return price whereas other destinations returned two seperate prices for the outbound leg and the inbound leg. Our aim was to return one full return price on each search.
+
+getQuote: function( savedFlight ) {
+  savedFlight.Quotes.forEach( function( flight, index ) {
+    if( flight.Direct === true && flight.OutboundLeg != undefined && flight.InboundLeg != undefined ) {
+      this.state.option1 = {
+        cost: flight.MinPrice,
+        outboundCarrierId: flight.OutboundLeg.CarrierIds[0],
+        inboundCarrierId: flight.InboundLeg.CarrierIds[0] 
+
+      }    
+    } else if( flight.Direct === true && flight.OutboundLeg != undefined ) { 
+        this.state.option2.cost += flight.MinPrice
+        this.state.option2.outboundCarrierId = flight.OutboundLeg.CarrierIds[0]
+    } else if( flight.Direct === true && flight.InboundLeg != undefined )  {
+          this.state.option2.cost += flight.MinPrice
+          this.state.option2.inboundCarrierId = flight.InboundLeg.CarrierIds[0]
+      }else{
+        console.log( "not direct buddy")
+      }
+  }.bind( this ))
+},
+
+Motivation
+
+Group project to display understanding of JavaScript and use of the DOM. Each member of the team has an interest in travelling and felt there should be a more efficient and user friendly way of organising short trips away.
 
 
-Here we are processing and routing requests from the app.
+Installation
 
-Will be using "GETS" as we don't have access to "POST" from skyscanner api. 
+Packages used for this app include:
+- webpack
+- mongo
+- chai
+- mocha
 
-
-Aside:
-Click on the "go" button on the app - it takes all the input info- date, destination etc - this will then get passed to flight model. Flight model will process this info by splitting it up and turning it into the API string- will be filling up the blank search criteria. This then gets passed to the app.js which makes this information useable- app.js generates api string. Finally this is passed to the server and this will return the JSON object for our VIEWER which builds and displays our results.
-
-(What do we want our database to do? Persist the choosen option there- final booking. )
-
-From the  VIEWER we go back to the screen (user select)and then persist to the DB.
-
-(User only has to consider the options and the confirmation.)
+Dependencies needed:
+- body-parser
+- express
 
 
-server.js references index.html 
+API Reference
+
+API's used for this project:
+
+- Skyscanner - http://partners.api.skyscanner.net/apiservices
+- Expedia - http://terminal2.expedia.com/x/mhotels/search?
+- Uber - https://api.uber.com/v1/estimates/price
+- Local API- mongodb://localhost:27017/airportsAPI
 
 
-app.get('/', function (req, res) {
- res.sendFile(path.join(__dirname + '/client/build/index.html'));
-});
-
-html file refers to bundle.js
-
---- webpack.config 
-
-config = {
-  entry: "./src/app.js",
-  output: {
-    filename: "bundle.js",
-    path: "./build"
-  },
-  devtool: 'source-map'
-}
-
-module.exports = config;
-
-app.js requires in here everything it needs to run as well as the viewers.
 
 
-viewer - constructor which will put info to screen
+
+
+
 
 
 
