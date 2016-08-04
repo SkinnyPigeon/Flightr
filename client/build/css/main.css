@@ -136,7 +136,8 @@ h5 {
  padding-right: 20px;
  padding-top: 0px;
  margin-top: 25px;
- background-color:#ADD8E6 ;
+ background: linear-gradient(135deg,  rgba(173, 216, 230, 1) 0%,rgba(154,216,224,1) 44%,rgba(124,216,205,1) 100%); 
+ /*background-color:#ADD8E6 ;*/
  position:relative;
 }
 
@@ -164,6 +165,9 @@ h5 {
  color:grey;
 }
 
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#abeaff+0,9ae2fa+44,84d8f4+100 */
+
+
 #container{
 width:550px;
 background-color:rgba(250,250,252,.9);
@@ -183,7 +187,7 @@ padding:20px;
 display:none;
 float: right;
 top: 0px;
-margin-right: 50px;
+margin-right: 200px;
 color:grey;
 }
 

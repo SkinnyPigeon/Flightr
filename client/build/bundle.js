@@ -404,6 +404,24 @@
 	
 	var chart1 = function () {
 	
+	  Highcharts.setOptions({
+	   colors: ['#eddf84', '#b292c9', '#d29ebe']
+	  });
+	
+	  Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
+	      return {
+	          radialGradient: {
+	              cx: 0.5,
+	              cy: 0.3,
+	              r: 0.7
+	          },
+	          stops: [
+	              [0, color],
+	              [1, Highcharts.Color(color).brighten(-0.15).get('rgb')] // darken
+	          ]
+	      };
+	  });
+	
 	  var container = document.getElementById( "p1Chart" );
 	
 	  var chart = new Highcharts.Chart({
