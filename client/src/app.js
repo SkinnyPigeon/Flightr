@@ -359,6 +359,12 @@ function requestUber4(){
 var chart1 = function () {
 
   Highcharts.setOptions({
+    chart: {
+        style: {
+            fontFamily: 'serif',
+            color: "#c3d4a0"
+        }
+    },
    colors: ['#eddf84', '#b292c9', '#d29ebe']
   });
 
