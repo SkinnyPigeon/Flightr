@@ -100,7 +100,7 @@
 	    display( 'People', state.people )
 	  }
 	
-	  var  flightUrl = "http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/GB/GBP/en-GB/EDI/anywhere/anytime/anytime?apiKey=eu863416336220144245856861714199"
+	  var  flightUrl = "http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/GB/GBP/en-GB/EDI/anywhere/anytime/anytime?apiKey=fl247614149467694322747085793437"
 	  var flightsRequest = new XMLHttpRequest();
 	  flightsRequest.open( "GET", flightUrl );
 	  flightsRequest.send( null );
@@ -178,7 +178,7 @@
 	  state.flightsearch.getCode( capitalize(city.value) )
 	  code = state.flightsearch.airport
 	
-	  var  url = "http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/GB/GBP/en-GB/EDI/" + code + "/" + state.departDate + "/" + state.returnDate + "?apiKey=eu863416336220144245856861714199"
+	  var  url = "http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/GB/GBP/en-GB/EDI/" + code + "/" + state.departDate + "/" + state.returnDate + "?apiKey=fl247614149467694322747085793437"
 	  var request = new XMLHttpRequest();
 	  request.open("GET", url);
 	  request.send(null);
@@ -218,7 +218,7 @@
 	
 	
 	var hotelClick = function( city, code ) {
-	  var hotelUrl = "http://terminal2.expedia.com/x/mhotels/search?city=" + city.value.toUpperCase() + "&checkInDate=" + state.departDate + "&checkOutDate=" + state.returnDate + "&room1=3&apikey=a7zmRxiJIznimU5WOlHpTRjDAOFZsrga";
+	  var hotelUrl = "http://terminal2.expedia.com/x/mhotels/search?city=" + city.value.toUpperCase() + "&checkInDate=" + state.departDate + "&checkOutDate=" + state.returnDate + "&room1=3&apikey=aKNgay5CAT6lHkcUN0PW8nbb7Pup9PRM";
 	  var hotelsRequest = new XMLHttpRequest();
 	  hotelsRequest.open( "GET", hotelUrl )
 	  hotelsRequest.send( null );
