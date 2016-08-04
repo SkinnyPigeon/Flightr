@@ -408,7 +408,6 @@
 	    chart: {
 	        style: {
 	            fontFamily: 'serif',
-	            color: "#c3d4a0"
 	        }
 	    },
 	   colors: ['#eddf84', '#b292c9', '#d29ebe']
@@ -845,16 +844,16 @@
 	
 	        console.log(this.state)
 	
-	        outbound.innerHTML = "Outbound Carrier: " + this.state.flightsearch.state.option1.outboundCarrier 
-	        inbound.innerHTML = "Inbound Carrier: " + this.state.flightsearch.state.option1.inboundCarrier 
-	        cost.innerHTML = "Cost of flights: £" + this.state.flightcost;
-	        uber.innerHTML = "Cost of Uber: £" + this.uberTotal;
-	        accomodation.innerHTML = "Accomodation: £" + this.hotelObject.lowRate;
-	        accomodationName.innerHTML = "Name: " + this.hotelObject.localizedName;
+	        outbound.innerHTML = "<b>Outbound Carrier: </b>" + this.state.flightsearch.state.option1.outboundCarrier 
+	        inbound.innerHTML = "<b>Inbound Carrier: </b>" + this.state.flightsearch.state.option1.inboundCarrier 
+	        cost.innerHTML = "<b>Cost of flights: </b>£" + this.state.flightcost;
+	        uber.innerHTML = "<b>Cost of Uber: </b>£" + this.uberTotal;
+	        accomodation.innerHTML = "<b>Accomodation: </b>£" + this.hotelObject.lowRate;
+	        accomodationName.innerHTML = "<b>Name: </b>" + this.hotelObject.localizedName;
 	        packageTotal.innerHTML = ""
-	        packageTotal.innerHTML = "Total: " + (this.state.flightcost + this.uberTotal + parseFloat(this.hotelObject.lowRate)).toFixed(2);
+	        packageTotal.innerHTML = "<b>Total: </b>" + (this.state.flightcost + this.uberTotal + parseFloat(this.hotelObject.lowRate)).toFixed(2);
 	
-	        total.innerHTML = "Total Transport Cost: £" + (this.uberTotal + this.state.flightcost).toFixed(2)
+	        total.innerHTML = "<b>Total Transport Cost: </b>£" + (this.uberTotal + this.state.flightcost).toFixed(2)
 	
 	        flight.appendChild( cost )
 	        flight.appendChild( outbound )
